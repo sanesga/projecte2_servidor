@@ -4,6 +4,7 @@ import (
 	"fmt"
 
 	"github.com/backend_go/articles"
+	"github.com/backend_go/books"
 	"github.com/backend_go/common"
 	"github.com/backend_go/users"
 	"github.com/jinzhu/gorm"
@@ -17,6 +18,8 @@ func Migrate(db *gorm.DB) {
 	db.AutoMigrate(&articles.FavoriteModel{})
 	db.AutoMigrate(&articles.ArticleUserModel{})
 	db.AutoMigrate(&articles.CommentModel{})
+
+	db.AutoMigrate(&books.BookModel{})
 }
 
 func main() {
@@ -38,6 +41,9 @@ func main() {
 	users.ProfileRegister(v1.Group("/profiles"))
 
 	articles.ArticlesRegister(v1.Group("/articles"))
+
+	books.BooksAnonymousRegister(v1.Group("/books"))
+	books.BooksRegister(v1.Group("/books"))
 
 	testAuth := r.Group("/api/ping")
 
@@ -68,5 +74,5 @@ func main() {
 	//}).First(&userAA)
 	//fmt.Println(userAA)
 
-	r.Run() // listen and serve on 0.0.0.0:8080
+	r.Run() // listen and serve on 0.0.0.0:8090
 }

@@ -31,3 +31,45 @@ cd src/github.com/backend_go
 - govendor sync 
 - govendor add +external
 - fresh
+
+kill PID at port 8090
+
+- sudo netstat -ltnp |grep :8090
+- sudo kill -9 PID
+
+initializing at 
+
+- http://localhost:8090/api/articles/
+
+###  POSTMAN
+
+- Get a Token:
+
+POST http://localhost:8090/api/users/login
+{
+  "user":{
+    "username": "sandra",
+    "email": "sandra@gmail.com",
+    "password": "12345678"
+  }
+}
+
+- See data with authorization Token
+
+GET http://localhost:8090/api/articles
+GET http://localhost:8090/api/books
+GET http://localhost:8090/api/books/slug
+
+
+
+
+
+
+
+
+
+
+
+
+
+
