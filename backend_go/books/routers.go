@@ -15,7 +15,7 @@ func BooksRegister(router *gin.RouterGroup) {
 }
 
 func BooksAnonymousRegister(router *gin.RouterGroup) {
-	router.GET("/", BookList)
+	router.GET("/", BookList) /*llama al método BookList (más abajo*/
 	router.GET("/:slug", BookRetrieve)
 }
 

@@ -18,7 +18,6 @@ func Migrate(db *gorm.DB) {
 	db.AutoMigrate(&articles.FavoriteModel{})
 	db.AutoMigrate(&articles.ArticleUserModel{})
 	db.AutoMigrate(&articles.CommentModel{})
-
 	db.AutoMigrate(&books.BookModel{})
 }
 
@@ -42,7 +41,7 @@ func main() {
 
 	articles.ArticlesRegister(v1.Group("/articles"))
 
-	books.BooksAnonymousRegister(v1.Group("/books"))
+	books.BooksAnonymousRegister(v1.Group("/books")) /*Esto llama a routes.go*/
 	books.BooksRegister(v1.Group("/books"))
 
 	testAuth := r.Group("/api/ping")

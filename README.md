@@ -4,14 +4,21 @@
 
 - Angular 
 
+### Run Frontend Angular
+
+- cd frontend_angular
+- sudo npm install
+- ng serve --host 0.0.0.0 --port 8081 --disableHostCheck true
+- http://localhost:8081/
+
 ## Backend 
 
 - Go 
 - MySQL
 
-### For running
+### Run Backend Go
 
-In directory /home/sandra/go
+In directory /home/sandra/go/src/github.com/backend_go
 
 - export GOROOT=/usr/local/go
 - export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
@@ -21,8 +28,6 @@ In directory /home/sandra/go
 - export PATH=$PATH:/sandra/go/bin
 - echo $GOPATH
 - echo $PATH
-
-cd src/github.com/backend_go
 
 - go get -u github.com/kardianos/govendor
 - go get -u golang.org/x/crypto/...
