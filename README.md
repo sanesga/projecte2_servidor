@@ -33,7 +33,7 @@ In directory /home/sandra/go/src/github.com/backend_go
 - go get -u golang.org/x/crypto/...
 - go get -u github.com/pilu/fresh
 
-- govendor sync 
+- govendor sync
 - govendor add +external
 - fresh
 

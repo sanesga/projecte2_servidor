@@ -6,26 +6,23 @@ import { ApiService } from './api.service';
 import { Book, BookListConfig } from '../models';
 import { map } from 'rxjs/operators';
 
+console.log("entra a book.service.ts")
 @Injectable()
 export class BooksService {
-  constructor (
+  constructor(
     private apiService: ApiService
-  ) {}
+  ) { }
 
-  query(config: BookListConfig): Observable<{books: Book[], booksCount: number}> {
-    // Convert any filters over to Angular's URLSearchParams
-    const params = {};
+  getAll(): Observable<[string]> {
+    console.log("entra a get all")
+    console.log(this.apiService.get('/books/')
+      .pipe(map(data => data.books)))
 
-    Object.keys(config.filters)
-    .forEach((key) => {
-      params[key] = config.filters[key];
-    });
-
-    return this.apiService
-    .get(
-      '/books/' + ((config.type === 'feed') ? 'feed' : ''),
-      new HttpParams({ fromObject: params })
-    );
+    return this.apiService.get('/books/')
+      .pipe(map(data =>{
+        console.log(data)
+        return data.books
+      } ));
   }
 
   get(slug): Observable<Book> {
@@ -40,12 +37,12 @@ export class BooksService {
   save(book): Observable<Book> {
     // If we're updating an existing article
     if (book.slug) {
-      return this.apiService.put('/books/' + book.slug, {book: book})
+      return this.apiService.put('/books/' + book.slug, { book: book })
         .pipe(map(data => data.book));
 
-    // Otherwise, create a new article
+      // Otherwise, create a new article
     } else {
-      return this.apiService.post('/books/', {article: book})
+      return this.apiService.post('/books/', { book: book })
         .pipe(map(data => data.book));
     }
   }

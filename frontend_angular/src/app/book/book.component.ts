@@ -31,6 +31,7 @@ export class BookComponent implements OnInit {
     // Retreive the prefetched book
     this.route.data.subscribe(
       (data: { book: Book }) => {
+        console.log(data.book)
         this.book = data.book;
       }
     );

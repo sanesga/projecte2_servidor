@@ -29,20 +29,21 @@ func main() {
 
 	r := gin.Default()
 
+	MakeRoutes(r) //habilita els CORS
+
 	v1 := r.Group("/api")
 	users.UsersRegister(v1.Group("/users"))
 	v1.Use(users.AuthMiddleware(false))
 	articles.ArticlesAnonymousRegister(v1.Group("/articles"))
 	articles.TagsAnonymousRegister(v1.Group("/tags"))
 
+	books.BooksAnonymousRegister(v1.Group("/books")) /*Esto llama a routes.go*/
+	books.BooksRegister(v1.Group("/books"))
+
 	v1.Use(users.AuthMiddleware(true))
 	users.UserRegister(v1.Group("/user"))
 	users.ProfileRegister(v1.Group("/profiles"))
-
 	articles.ArticlesRegister(v1.Group("/articles"))
-
-	books.BooksAnonymousRegister(v1.Group("/books")) /*Esto llama a routes.go*/
-	books.BooksRegister(v1.Group("/books"))
 
 	testAuth := r.Group("/api/ping")
 
@@ -73,5 +74,28 @@ func main() {
 	//}).First(&userAA)
 	//fmt.Println(userAA)
 
-	r.Run() // listen and serve on 0.0.0.0:8090
+	r.Run(":8090") // listen and serve on 0.0.0.0:8090
+}
+
+func MakeRoutes(r *gin.Engine) {
+	cors := func(c *gin.Context) {
+		c.Writer.Header().Set("Access-Control-Allow-Origin", "*")
+		c.Writer.Header().Set("Access-Control-Allow-Credentials", "true")
+		c.Writer.Header().Set("Access-Control-Allow-Headers", "Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization, accept, origin, Cache-Control, X-Requested-With")
+		c.Writer.Header().Set("Access-Control-Allow-Methods", "*")
+		c.Writer.Header().Set("Content-Type", "application/json")
+
+		if c.Request.Method == "OPTIONS" {
+			c.AbortWithStatus(200)
+		}
+		c.Next()
+
+		/*
+			fmt.Printf("c.Request.Method \n")
+			fmt.Printf(c.Request.Method)
+			fmt.Printf("c.Request.RequestURI \n")
+			fmt.Printf(c.Request.RequestURI)
+		*/
+	}
+	r.Use(cors)
 }

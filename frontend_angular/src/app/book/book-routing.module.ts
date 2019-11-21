@@ -5,15 +5,27 @@ import { BookResolver } from './book-resolver.service';
 
 console.log("entra al routing de book");
 
+// const routes: Routes = [
+//   {
+//     path: ':slug',
+//     component: BookComponent,
+//     resolve: {
+//       book: BookResolver
+//     }
+//   }
+// ];
+
 const routes: Routes = [
-  {
-    path: ':slug',
-    component: BookComponent,
-    resolve: {
-      article: BookResolver
+    {
+      path: '',
+      component: BookComponent,
+      resolve: {
+        books: BookResolver 
+      }
     }
-  }
-];
+  ];
+
+  
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
