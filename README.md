@@ -18,7 +18,7 @@
 
 ### Run Backend Go
 
-In directory /home/sandra/go/src/github.com/backend_go
+In directory /home/sandra/go
 
 - export GOROOT=/usr/local/go
 - export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
@@ -32,6 +32,8 @@ In directory /home/sandra/go/src/github.com/backend_go
 - go get -u github.com/kardianos/govendor
 - go get -u golang.org/x/crypto/...
 - go get -u github.com/pilu/fresh
+
+In directory /home/sandra/go/src/github.com/backend_go
 
 - govendor sync
 - govendor add +external

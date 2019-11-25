@@ -1,10 +1,9 @@
+<h1>BOOK'S LIST</h1>
 
-<p>ENTRAMOS AL HTML DE BOOKS</p>
-
-
-<div *ngFor="let b of book">
- <h1>{{ b }}</h1>
- </div>
-
-
-     
+<div *ngFor="let book of books">
+    <p>TITLE: {{book.title}}</p>
+    <p>DESCRIPTION: {{book.description}}</p>
+    <p>CATEGORY: {{book.category}}</p>
+    <p>PRICE: {{book.price}}</p>
+    <p>AUTHOR: {{book.author}}</p>
+</div>

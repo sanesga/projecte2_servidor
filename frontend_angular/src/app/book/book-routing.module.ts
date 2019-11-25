@@ -3,29 +3,16 @@ import { Routes, RouterModule } from '@angular/router';
 import { BookComponent } from './book.component';
 import { BookResolver } from './book-resolver.service';
 
-console.log("entra al routing de book");
-
-// const routes: Routes = [
-//   {
-//     path: ':slug',
-//     component: BookComponent,
-//     resolve: {
-//       book: BookResolver
-//     }
-//   }
-// ];
-
 const routes: Routes = [
     {
       path: '',
       component: BookComponent,
       resolve: {
-        books: BookResolver 
+        books: BookResolver /*obtiene la información del resolver, que a su vez llama al service*/
       }
     }
   ];
 
-  
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

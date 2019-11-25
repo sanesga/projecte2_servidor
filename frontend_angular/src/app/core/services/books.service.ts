@@ -6,7 +6,7 @@ import { ApiService } from './api.service';
 import { Book, BookListConfig } from '../models';
 import { map } from 'rxjs/operators';
 
-console.log("entra a book.service.ts")
+
 @Injectable()
 export class BooksService {
   constructor(
@@ -14,14 +14,9 @@ export class BooksService {
   ) { }
 
   getAll(): Observable<[string]> {
-    console.log("entra a get all")
-    console.log(this.apiService.get('/books/')
-      .pipe(map(data => data.books)))
-
     return this.apiService.get('/books/')
       .pipe(map(data =>{
-        console.log(data)
-        return data.books
+        return data.book
       } ));
   }
 
