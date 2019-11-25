@@ -13,7 +13,7 @@ import { BookRoutingModule } from './book-routing.module';
     BookRoutingModule
   ],
   declarations: [
-    BookComponent,
+ 
     MarkdownPipe
   ],
 
