@@ -5,4 +5,4 @@ export * from './errors.model';
 export * from './profile.model';
 export * from './user.model';
 export * from './book.model';
-export * from './book-list-config.model';
+

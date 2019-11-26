@@ -3,7 +3,7 @@ import { HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { ApiService } from './api.service';
-import { Book, BookListConfig } from '../models';
+import { Book } from '../models';
 import { map } from 'rxjs/operators';
 
 
@@ -21,6 +21,8 @@ export class BooksService {
   }
 
   get(slug): Observable<Book> {
+    console.log("entra a get")
+    console.log(slug)
     return this.apiService.get('/books/' + slug)
       .pipe(map(data => data.book));
   }

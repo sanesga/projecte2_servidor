@@ -1,8 +1,10 @@
 <h1>BOOK'S LIST</h1>
 
 <div *ngFor="let book of books">
-    <p>TITLE: {{book.title}}</p>
-    <button> HAZ CLICK PARA VER DETALLES </button>
-    <!-- <app-book-detail [book]="book"></app-book-detail> -->
+ 
+  <app-book-detail [book]="book"></app-book-detail>
 
+ 
 </div>
+
+
