@@ -1,10 +1,7 @@
 <h1>BOOK'S LIST</h1>
 
 <div *ngFor="let book of books">
- 
-  <app-book-detail [book]="book"></app-book-detail>
-
- 
+  <a [routerLink]="['/bookList', book.slug]">{{ book.title }}</a>
 </div>
 
 

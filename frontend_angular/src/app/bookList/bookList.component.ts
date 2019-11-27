@@ -6,11 +6,11 @@ import {
 } from '../core';
 
 @Component({
-  selector: 'app-book-page',
-  templateUrl: './book.component.html'
+  selector: 'app-bookList-page',
+  templateUrl: './bookList.component.html'
 })
-export class BookComponent implements OnInit {
-  books: Book[];
+export class BookListComponent implements OnInit {
+  book: Book;
 
   constructor(
     private route: ActivatedRoute,
@@ -18,8 +18,8 @@ export class BookComponent implements OnInit {
 
   ngOnInit() {
     this.route.data.subscribe(
-      (data: { books: Book[] }) => {
-        this.books = data.books;
+      (data: { book: Book }) => {
+        this.book = data.book;
       }
     );
   }

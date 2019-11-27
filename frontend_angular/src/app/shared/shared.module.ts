@@ -10,6 +10,7 @@ import { ListErrorsComponent } from './list-errors.component';
 import { ShowAuthedDirective } from './show-authed.directive';
 import { BookComponent } from '../book/book.component';
 import { BookDetailComponent } from './book-helpers';
+import { BookListComponent } from '../bookList/bookList.component';
 
 @NgModule({
   imports: [
@@ -28,7 +29,8 @@ import { BookDetailComponent } from './book-helpers';
     ListErrorsComponent,
     ShowAuthedDirective,
     BookComponent,
-    BookDetailComponent
+    BookDetailComponent,
+    BookListComponent
   ],
   exports: [
     ArticleListComponent,
@@ -44,7 +46,8 @@ import { BookDetailComponent } from './book-helpers';
     RouterModule,
     ShowAuthedDirective,
     BookComponent,
-    BookDetailComponent
+    BookDetailComponent,
+    BookListComponent
   ]
 })
 export class SharedModule {}

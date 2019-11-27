@@ -21,10 +21,11 @@ export class BooksService {
   }
 
   get(slug): Observable<Book> {
-    console.log("entra a get")
-    console.log(slug)
     return this.apiService.get('/books/' + slug)
-      .pipe(map(data => data.book));
+      .pipe(map(data =>{
+        //console.log(data.book)
+        return data.book
+      } ));
   }
 
   destroy(slug) {

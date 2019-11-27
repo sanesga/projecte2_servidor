@@ -11,14 +11,14 @@ const routes: Routes = [
       resolve: {
         books: BookResolver /*obtiene la información del resolver, que a su vez llama al service*/
       }
-    },
-    {
-      path: '/slug',
-      component: BookComponent,
-      resolve: {
-        book: BookResolver /*obtiene la información del resolver, que a su vez llama al service*/
-      }
     }
+    // {
+    //   path: ':slug',
+    //   component: BookComponent,
+    //   resolve: {
+    //     book: BookResolver /*obtiene la información del resolver, que a su vez llama al service*/
+    //   }
+    // }
   ];
 
 

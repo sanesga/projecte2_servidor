@@ -21,6 +21,10 @@ const routes: Routes = [
   {
     path: 'book',
     loadChildren: './book/book.module#BookModule'
+  },
+  {
+    path: 'bookList',
+    loadChildren: './bookList/bookList.module#BookListModule'
   }
 ];
 
