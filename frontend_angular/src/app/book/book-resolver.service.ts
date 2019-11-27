@@ -17,14 +17,6 @@ export class BookResolver implements Resolve<Book> {
     state: RouterStateSnapshot
 
   ): Observable<any> { 
-    
-    //espera una respuesta de tipo no especificado
-    // if(route.params['slug']!=null){
-    //   console.log(route.params['slug'])
-    //   console.log("le pasamos slug");
-    //    return this.booksService.get(route.params['slug'])
-    // }else{
-      // console.log("no le pasamos slug")
       return this.booksService.getAll();
     }
    

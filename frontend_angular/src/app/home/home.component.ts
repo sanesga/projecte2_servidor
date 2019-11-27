@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-
-import { ArticleListConfig, TagsService, UserService } from '../core';
+import { Router, ActivatedRoute } from '@angular/router';
+import { Book } from '../core';
+import { ArticleListConfig, TagsService, UserService, BooksService } from '../core';
 
 @Component({
   selector: 'app-home-page',
@@ -12,7 +12,9 @@ export class HomeComponent implements OnInit {
   constructor(
     private router: Router,
     private tagsService: TagsService,
-    private userService: UserService
+    private userService: UserService,
+    private route: ActivatedRoute,
+    private booksService: BooksService,
   ) {}
 
   isAuthenticated: boolean;
@@ -22,6 +24,7 @@ export class HomeComponent implements OnInit {
   };
   tags: Array<string> = [];
   tagsLoaded = false;
+  books:  Array<string> = [];
 
   ngOnInit() {
     this.userService.isAuthenticated.subscribe(
@@ -42,6 +45,13 @@ export class HomeComponent implements OnInit {
       this.tags = tags;
       this.tagsLoaded = true;
     });
+
+    /*obtenemos todos los libros*/
+    this.booksService.getAll()
+    .subscribe(books => {
+      this.books = books;
+    });
+  
   }
 
   setListTo(type: string = '', filters: Object = {}) {

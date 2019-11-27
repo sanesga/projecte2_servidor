@@ -35,7 +35,12 @@
           </ul>
         </div>
 
-        <app-article-list [limit]="10" [config]="listConfig"></app-article-list>
+        <!-- <app-article-list [limit]="10" [config]="listConfig"></app-article-list> -->
+        
+        <div *ngFor="let book of books">
+          <a [routerLink]="['/bookList', book.slug]">{{ book.title }}</a>
+        </div>
+         
       </div>
 
       <div class="col-md-3">

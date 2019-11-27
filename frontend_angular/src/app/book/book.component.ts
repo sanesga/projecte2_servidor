@@ -1,9 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-
-import {
-  Book
-} from '../core';
+import { Book } from '../core';
 
 @Component({
   selector: 'app-book-page',
