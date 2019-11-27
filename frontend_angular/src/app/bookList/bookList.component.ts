@@ -7,6 +7,7 @@ import {
 
 @Component({
   selector: 'app-bookList-page',
+  styleUrls: ['bookList.component.css'],
   templateUrl: './bookList.component.html'
 })
 export class BookListComponent implements OnInit {

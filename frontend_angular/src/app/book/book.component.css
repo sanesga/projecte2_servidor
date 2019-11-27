@@ -1,0 +1,14 @@
+h1{
+    height: 150px;
+    background-color: red;
+    color: white;
+    text-align: center;
+    line-height: 150px;
+}
+a{
+    margin-top:50px;
+    color:grey;
+    font-size: 20px;
+    text-decoration: underline grey ;
+   
+}

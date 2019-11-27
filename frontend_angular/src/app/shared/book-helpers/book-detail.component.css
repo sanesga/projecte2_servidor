@@ -1,0 +1,17 @@
+h6,p{
+    display: inline-block;
+}
+h6{
+    margin-left: 10px;
+    color: white;
+    background-color: red;
+    border-radius: 20px;
+    padding: 10px;
+}
+p{
+    color: grey;
+    margin-left: 10px;
+    font-size: 20px;
+    
+}
+
