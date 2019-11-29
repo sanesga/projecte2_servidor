@@ -1,8 +1,8 @@
 package books
 
 import (
-	"github.com/backend_go/common"
 	"github.com/gosimple/slug"
+	"github.com/proyecto/backend_go/common"
 	"gopkg.in/gin-gonic/gin.v1"
 )
 

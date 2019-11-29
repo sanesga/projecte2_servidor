@@ -3,8 +3,8 @@ package users
 import (
 	"errors"
 
-	"github.com/backend_go/common"
 	"github.com/jinzhu/gorm"
+	"github.com/proyecto/backend_go/common"
 	"golang.org/x/crypto/bcrypt"
 )
 

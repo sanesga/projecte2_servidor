@@ -3,11 +3,11 @@ package main
 import (
 	"fmt"
 
-	"github.com/backend_go/articles"
-	"github.com/backend_go/books"
-	"github.com/backend_go/common"
-	"github.com/backend_go/users"
 	"github.com/jinzhu/gorm"
+	"github.com/proyecto/backend_go/articles"
+	"github.com/proyecto/backend_go/books"
+	"github.com/proyecto/backend_go/common"
+	"github.com/proyecto/backend_go/users"
 	"gopkg.in/gin-gonic/gin.v1"
 )
 

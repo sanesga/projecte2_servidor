@@ -3,8 +3,8 @@ package books
 import (
 	_ "fmt"
 
-	"github.com/backend_go/common"
 	"github.com/jinzhu/gorm"
+	"github.com/proyecto/backend_go/common"
 )
 
 type BookModel struct {

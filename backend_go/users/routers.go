@@ -4,7 +4,7 @@ import (
 	"errors"
 	"net/http"
 
-	"github.com/backend_go/common"
+	"github.com/proyecto/backend_go/common"
 	"gopkg.in/gin-gonic/gin.v1"
 )
 

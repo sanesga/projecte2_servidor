@@ -4,9 +4,9 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/backend_go/common"
 	"github.com/dgrijalva/jwt-go"
 	"github.com/dgrijalva/jwt-go/request"
+	"github.com/proyecto/backend_go/common"
 	"gopkg.in/gin-gonic/gin.v1"
 )
 

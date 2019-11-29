@@ -4,9 +4,9 @@ import (
 	_ "fmt"
 	"strconv"
 
-	"github.com/backend_go/common"
-	"github.com/backend_go/users"
 	"github.com/jinzhu/gorm"
+	"github.com/proyecto/backend_go/common"
+	"github.com/proyecto/backend_go/users"
 )
 
 type ArticleModel struct {

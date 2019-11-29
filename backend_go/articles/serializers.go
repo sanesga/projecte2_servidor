@@ -1,8 +1,8 @@
 package articles
 
 import (
-	"github.com/backend_go/users"
 	"github.com/gosimple/slug"
+	"github.com/proyecto/backend_go/users"
 	"gopkg.in/gin-gonic/gin.v1"
 )
 

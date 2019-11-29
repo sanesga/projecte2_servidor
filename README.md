@@ -18,33 +18,39 @@
 
 ### Run Backend Go
 
-In directory /home/sandra/go and /home/sandra/go/src/github.com/backend_go
+- In directory cd /home/sandra/go/src/github.com/proyecto/backend_go
 
-- export GOROOT=/usr/local/go
-- export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
-- go version
-- go env
-- export GOPATH=/home/sandra/go/
-- export PATH=$PATH:/sandra/go/bin
-- echo $GOPATH
-- echo $PATH
+  - export GOROOT=/usr/local/go
+  - export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
+  - go version
+  - go env
+  - export GOPATH=/home/sandra/go/
+  - export PATH=$PATH:/home/sandra/go/bin
+  - echo $GOPATH
+  - echo $PATH
 
-- go get -u github.com/kardianos/govendor
-- go get -u golang.org/x/crypto/...
-- go get -u github.com/pilu/fresh
+- First time:
 
-- govendor sync
-- govendor add +external
-- fresh
+  - go get -u github.com/kardianos/govendor
+  - go get -u golang.org/x/crypto/...
+  - go get -u github.com/pilu/fresh
 
-kill PID at port 8090
+  - govendor sync
+  - govendor add +external
+  - fresh
 
-- sudo netstat -ltnp |grep :8090
-- sudo kill -9 PID
+- Other times:
 
-initializing at 
+  - fresh
 
-- http://localhost:8090/api/articles/
+- If port 8090 is being used, kill process:
+
+  - sudo netstat -ltnp |grep :8090
+  - sudo kill -9 PID
+
+- Initializing at:
+
+  - http://localhost:8090/api/articles/
 
 ###  POSTMAN
 
@@ -65,6 +71,27 @@ GET http://localhost:8090/api/articles
 GET http://localhost:8090/api/books
 GET http://localhost:8090/api/books/slug
 
+### SWAGGER
+
+In directory cd /src/github.com/swagger
+
+- export GOROOT=/usr/local/go
+- export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
+- export GOPATH=/home/sandra/go/
+- export PATH=$PATH:/sandra/go/bin
+
+
+- go get -u github.com/swaggo/swag/cmd/swag
+- go get -u github.com/swaggo/gin-swagger
+- go get -u github.com/swaggo/gin-swagger/swaggerFiles
+
+- Start swagger:
+
+- go run main.go
+
+- http://localhost:8090/swagger/index.html
+- GET  http://localhost:8090/api/articles/
+- GET  http://localhost:8090/api/tags/
 
 
 
