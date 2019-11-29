@@ -1,0 +1,26 @@
+Gocialite
+- https://codelike.pro/easy-social-login-oauth-in-go-lang/
+- https://github.com/danilopolani/gocialite
+- https://github.com/danilopolani/gocialite/wiki/Multi-provider-example
+
+$ export GOROOT=/usr/local/go
+$ export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
+$ go version
+$ go env
+$ export GOPATH=/home/yomogan/Escritorio/2_NodeJS_AngularJS15_ES6/5_GinGonic/projects_go_gin
+$ echo $GOPATH
+$ export PATH=$PATH:/home/yomogan/Escritorio/2_NodeJS_AngularJS15_ES6/5_GinGonic/projects_go_gin/bin
+$ echo $PATH
+
+----------------------------------------- Install --------------------------------------------------
+$ mkdir -p $GOPATH/src/github.com/yomogan/10_social && cd "$_"
+$ touch main.go
+- copiar codi de https://github.com/danilopolani/gocialite/wiki/Multi-provider-example
+
+$ go get -u github.com/danilopolani/gocialite
+$ go get -u github.com/gin-gonic/gin
+
+- https://github.com/settings/developers -> New OAuth Application
+
+$ go run main.go
+- http://localhost:9091/

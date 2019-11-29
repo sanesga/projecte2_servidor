@@ -71,9 +71,9 @@ GET http://localhost:8090/api/articles
 GET http://localhost:8090/api/books
 GET http://localhost:8090/api/books/slug
 
-### SWAGGER
+<!-- ### SWAGGER
 
-In directory cd /src/github.com/swagger
+<!-- In directory cd /src/github.com/swagger
 
 - export GOROOT=/usr/local/go
 - export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
@@ -91,7 +91,7 @@ In directory cd /src/github.com/swagger
 
 - http://localhost:8090/swagger/index.html
 - GET  http://localhost:8090/api/articles/
-- GET  http://localhost:8090/api/tags/
+- GET  http://localhost:8090/api/tags/ --> 
 
 
 
