@@ -1,0 +1,28 @@
+$ export GOROOT=/usr/local/go
+$ export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
+$ go version
+$ go env
+$ export GOPATH=/home/yomogan/Escritorio/2_NodeJS_AngularJS15_ES6/5_GinGonic/projects_go_gin
+$ echo $GOPATH
+$ export PATH=$PATH:/home/yomogan/Escritorio/2_NodeJS_AngularJS15_ES6/5_GinGonic/projects_go_gin/bin
+$ echo $PATH
+
+---------------------------------------- Swagger ----------------------------------------
+- https://github.com/swaggo/gin-swagger
+
+$ cd $GOPATH/src/github.com/yomogan
+$ cd 7_swagger
+$ go get -u github.com/swaggo/swag/cmd/swag
+$ go get -u github.com/swaggo/gin-swagger
+$ go get -u github.com/swaggo/gin-swagger/swaggerFiles
+
+- docs.go -> copiar https://github.com/gothinkster/realworld/blob/master/api/swagger.json
+	"host": "0.0.0.0:3003",
+    "basePath": "/api",
+    "schemes": "http"
+- Provar swagger.json en https://editor.swagger.io/
+
+$ go run main.go
+- http://0.0.0.0:3004/swagger/index.html
+- GET  http://0.0.0.0:3003/api/articles/
+- GET  http://0.0.0.0:3003/api/tags/
