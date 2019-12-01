@@ -11,19 +11,11 @@ import (
 var doc = `{
     "swagger": "2.0",
     "info": {
-      "description": "Conduit API",
+      "description": "Library API ",
       "version": "1.0.0",
-      "title": "Conduit API",
-      "contact": {
-        "name": "RealWorld",
-        "url": "https://realworld.io"
-      },
-      "license": {
-        "name": "MIT License",
-        "url": "https://opensource.org/licenses/MIT"
-      }
+      "title": "Library"
     },
-    "host": "0.0.0.0:3003",
+    "host": "localhost:3003",
     "basePath": "/api",
     "schemes": [
       "http"
@@ -43,6 +35,162 @@ var doc = `{
       }
     },
     "paths": {
+
+      "/books/": {
+        "get": {
+          "summary": "Get all books",
+          "description": "Get books of all users. Auth not required",
+          "tags": [
+            "Books"
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/definitions/MultipleBooksResponse"
+              }
+            },
+            "422": {
+              "description": "Unexpected error",
+              "schema": {
+                "$ref": "#/definitions/GenericErrorModel"
+              }
+            }
+          }
+        },
+
+        "post": {
+          "summary": "Create a book",
+          "description": "Create a book. Auth not required",
+          "tags": [
+            "Books"
+          ],
+          "operationId": "CreateBook",
+          "parameters": [
+            {
+              "title": "book",
+              "in": "body",
+              "required": true,
+              "description": "Book to create",
+              "schema": {
+                "$ref": "#/definitions/NewBookRequest"
+              }
+            }
+          ],
+          "responses": {
+            "201": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/definitions/SingleBookResponse"
+              }
+            },
+            "422": {
+              "description": "Unexpected error",
+              "schema": {
+                "$ref": "#/definitions/GenericErrorModel"
+              }
+            }
+          }
+        }
+        },
+        "/books/slug": {
+        "put": {
+          "summary": "Update a book",
+          "description": "Update a book. Auth is required",
+          "tags": [
+            "Books"
+          ],
+          "operationId": "UpdateBook",
+          "parameters": [
+            {
+              "title": "book",
+              "in": "body",
+              "required": true,
+              "description": "Book to update",
+              "schema": {
+                "$ref": "#/definitions/UpdateBookRequest"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/definitions/SingleBookResponse"
+              }
+            },
+            "422": {
+              "description": "Unexpected error",
+              "schema": {
+                "$ref": "#/definitions/GenericErrorModel"
+              }
+            }
+          }
+        
+        },
+
+        "delete": {
+          "summary": "Delete a book",
+          "description": "Delete a book. Auth is required",
+          "tags": [
+            "Books"
+          ],
+          "operationId": "DeleteBook",
+          "parameters": [
+            {
+              "name": "slug",
+              "in": "path",
+              "required": true,
+              "description": "Slug of the book to delete",
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Delete succes",
+            },
+            "422": {
+              "description": "Unexpected error",
+              "schema": {
+                "$ref": "#/definitions/GenericErrorModel"
+              }
+            }
+          }
+        },
+
+          "get": {
+            "summary": "Get a book",
+            "description": "Get a book. Auth not required",
+            "tags": [
+              "Books"
+            ],
+            "operationId": "GetBook",
+            "parameters": [
+              {
+                "name": "slug",
+                "in": "path",
+                "required": true,
+                "description": "Slug of the book to get",
+                "type": "string"
+              }
+            ],
+            "responses": {
+              "200": {
+                "description": "OK",
+                "schema": {
+                  "$ref": "#/definitions/SingleBookResponse"
+                }
+              },
+              "422": {
+                "description": "Unexpected error",
+                "schema": {
+                  "$ref": "#/definitions/GenericErrorModel"
+                }
+              }
+            }
+          }
+        },
+       
       "/users/login": {
         "post": {
           "summary": "Existing user login",
@@ -1021,6 +1169,36 @@ var doc = `{
           "author"
         ]
       },
+
+      "Book": {
+        "type": "object",
+        "properties": {
+          "slug": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "category": {
+            "type": "string"
+          },
+          "price": {
+            "type": "integer"
+          },
+          "author": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "slug",
+          "title"
+        
+        ]
+      },
+
       "SingleArticleResponse": {
         "type": "object",
         "properties": {
@@ -1050,6 +1228,21 @@ var doc = `{
           "articlesCount"
         ]
       },
+      "MultipleBooksResponse": {
+        "type": "object",
+        "properties": {
+          "books": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/Book"
+            }
+          },
+        
+        },
+        "required": [
+          "books"
+        ]
+      },
       "NewArticle": {
         "type": "object",
         "properties": {
@@ -1075,6 +1268,35 @@ var doc = `{
           "body"
         ]
       },
+
+      "NewBook": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "category": {
+            "type": "string"
+          },
+          "author": {
+            "type": "string",
+          },
+          "price": {
+            "type": "integer",
+          },
+        },
+        "required": [
+          "title",
+        ]
+      },
+
+
+
+
+
       "NewArticleRequest": {
         "type": "object",
         "properties": {
@@ -1086,6 +1308,20 @@ var doc = `{
           "article"
         ]
       },
+
+      "NewBookRequest": {
+        "type": "object",
+        "properties": {
+          "book": {
+            "$ref": "#/definitions/NewBook"
+          }
+        },
+        "required": [
+          "book"
+        ]
+      },
+
+
       "UpdateArticle": {
         "type": "object",
         "properties": {
@@ -1100,6 +1336,29 @@ var doc = `{
           }
         }
       },
+
+      "UpdateBook": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "category": {
+            "type": "string"
+          },
+          "author": {
+            "type": "string"
+          },
+          "price": {
+            "type": "integer"
+          },
+        }
+      },
+
+
       "UpdateArticleRequest": {
         "type": "object",
         "properties": {
@@ -1111,6 +1370,21 @@ var doc = `{
           "article"
         ]
       },
+
+      "UpdateBookRequest": {
+        "type": "object",
+        "properties": {
+          "book": {
+            "$ref": "#/definitions/UpdateBook"
+          }
+        },
+        "required": [
+          "book"
+        ]
+      },
+
+     
+      
       "Comment": {
         "type": "object",
         "properties": {
@@ -1201,6 +1475,19 @@ var doc = `{
           "tags"
         ]
       },
+      "SingleBookResponse": {
+        "type": "object",
+        "properties": {
+          "book": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/Book"
+            }
+          }
+        }
+      },
+
+  
       "GenericErrorModel": {
         "type": "object",
         "properties": {

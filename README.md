@@ -71,28 +71,27 @@ GET http://localhost:8090/api/articles
 GET http://localhost:8090/api/books
 GET http://localhost:8090/api/books/slug
 
-<!-- ### SWAGGER
+### SWAGGER
 
-<!-- In directory cd /src/github.com/swagger
+In directory cd /home/sandra/go/src/github.com/proyecto/swagger
 
-- export GOROOT=/usr/local/go
-- export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
-- export GOPATH=/home/sandra/go/
-- export PATH=$PATH:/sandra/go/bin
+  - export GOROOT=/usr/local/go
+  - export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
+  - export GOPATH=/home/sandra/go/
+  - export PATH=$PATH:/home/sandra/go/bin
 
+- First time:
 
-- go get -u github.com/swaggo/swag/cmd/swag
-- go get -u github.com/swaggo/gin-swagger
-- go get -u github.com/swaggo/gin-swagger/swaggerFiles
+  - go get -u github.com/swaggo/swag/cmd/swag 
+  - go get -u github.com/swaggo/gin-swagger
+  - go get -u github.com/swaggo/gin-swagger/swaggerFiles
 
-- Start swagger:
+  - go run main.go
 
-- go run main.go
+- Other times:
 
-- http://localhost:8090/swagger/index.html
-- GET  http://localhost:8090/api/articles/
-- GET  http://localhost:8090/api/tags/ --> 
-
+  - go run main.go
+  - http://0.0.0.0:3004/swagger/index.html
 
 
 
