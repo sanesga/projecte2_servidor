@@ -52,6 +52,12 @@
 
   - http://localhost:8090/api/articles/
 
+- If inotify_init: too many open files problem:
+
+  - cat /proc/sys/fs/inotify/max_user_instances
+  - sudo su
+  - echo 256 > /proc/sys/fs/inotify/max_user_instances
+
 ###  POSTMAN
 
 - Get a Token:
@@ -92,6 +98,27 @@ In directory cd /home/sandra/go/src/github.com/proyecto/swagger
 
   - go run main.go
   - http://0.0.0.0:3004/swagger/index.html
+
+
+### BACKEND DOCKERIZED
+
+- Build container:
+   - sudo docker build -t back_go .
+
+- See images:
+   - sudo docker images -a
+
+- Run container:
+  - sudo docker run -d -p 8090:8090 --name back_go golang
+
+- See container:
+
+  - sudo docker ps -a
+
+
+
+
+
 
 
 
