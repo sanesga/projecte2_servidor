@@ -13,7 +13,13 @@ const routes: Routes = [
     path: 'register',
     component: AuthComponent,
     canActivate: [NoAuthGuard]
+  },
+  {
+    path: 'socialLogin',
+    component: AuthComponent,
+    canActivate: [NoAuthGuard]
   }
+
 ];
 
 @NgModule({

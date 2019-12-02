@@ -115,6 +115,7 @@
           <a [routerLink]="['/login']">Sign in</a> or <a [routerLink]="['/register']">sign up</a> to add comments on this article.
         </div>
 
+
         <app-article-comment
           *ngFor="let comment of comments"
           [comment]="comment"
