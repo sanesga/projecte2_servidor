@@ -1,8 +1,25 @@
-# projecte2_servidor
+# LIBRARY PROJECT
+
+Functions:
+
+- Login and register
+- Book's list and details
+- Social login (github) -- en curso
 
 ## Frontend
 
 - Angular 
+
+## Backend Go
+
+- Go
+- SQLite
+
+## Backend Swagger
+
+- Go
+- Swagger
+
 
 ### Run Frontend Angular
 
@@ -11,10 +28,6 @@
 - ng serve --host 0.0.0.0 --port 8081 --disableHostCheck true
 - http://localhost:8081/
 
-## Backend 
-
-- Go 
-- MySQL
 
 ### Run Backend Go
 
@@ -52,13 +65,14 @@
 
   - http://localhost:8090/api/articles/
 
+
 - If inotify_init: too many open files problem:
 
   - cat /proc/sys/fs/inotify/max_user_instances
   - sudo su
-  - echo 256 > /proc/sys/fs/inotify/max_user_instances
+  - echo 10000 > /proc/sys/fs/inotify/max_user_instances
 
-###  POSTMAN
+### Postman
 
 - Get a Token:
 
@@ -77,7 +91,33 @@ GET http://localhost:8090/api/articles
 GET http://localhost:8090/api/books
 GET http://localhost:8090/api/books/slug
 
-### SWAGGER
+### Backend Dockerized
+
+- Build container:
+   - sudo docker build -t back_go .
+
+- See images:
+   - sudo docker images -a
+
+- Run container:
+  - sudo docker run -p 8090:8090 --name container_backend back_go
+
+- See container:
+
+  - sudo docker ps -a
+
+- If inotify_init: too many open files problem:
+
+  - cat /proc/sys/fs/inotify/max_user_instances
+  - sudo su
+  - echo 10000 > /proc/sys/fs/inotify/max_user_instances
+
+- Delete old containers:
+
+  - sudo docker rm containerName
+
+
+### Run Backend Swagger
 
 In directory cd /home/sandra/go/src/github.com/proyecto/swagger
 
@@ -98,36 +138,4 @@ In directory cd /home/sandra/go/src/github.com/proyecto/swagger
 
   - go run main.go
   - http://0.0.0.0:3004/swagger/index.html
-
-
-### BACKEND DOCKERIZED
-
-- Build container:
-   - sudo docker build -t back_go .
-
-- See images:
-   - sudo docker images -a
-
-- Run container:
-  - sudo docker run -d -p 8090:8090 --name back_go golang
-
-- See container:
-
-  - sudo docker ps -a
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
