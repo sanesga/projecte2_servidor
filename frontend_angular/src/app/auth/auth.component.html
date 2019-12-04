@@ -7,7 +7,7 @@
         <p class="text-xs-center">
           <a [routerLink]="['/login']" *ngIf="authType == 'register'">Have an account?</a>
           <a [routerLink]="['/register']" *ngIf="authType == 'login'">Need an account?</a><br><br>
-          <button><a [routerLink]="['/socialLogin']">Login with github</a></button>
+          <a href="http://localhost:8090/api/socialLogin/auth/github"><i class="ion-social-github"></i>&nbsp;Github</a>
         </p>
         <app-list-errors [errors]="errors"></app-list-errors>
         <form [formGroup]="authForm" (ngSubmit)="submitForm()">

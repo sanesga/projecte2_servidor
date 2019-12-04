@@ -1,0 +1,13 @@
+version: "3"
+services:
+  backend_go:
+    build: .
+    image: back_go
+    working_dir: /go/src/github.com/
+    restart: on-failure
+    command: fresh
+    volumes:
+      - .:/go/src/github.com/proyecto
+      - /go/src/github.com/proyecto/backend_go/vendor
+    ports:
+      - "8090:8090"

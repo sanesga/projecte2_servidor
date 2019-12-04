@@ -20,6 +20,17 @@ type UserModelValidator struct {
 	userModel UserModel `json:"-"`
 }
 
+type SocialLoginValidator struct {
+	User struct {
+		Username string `form:"username" json:"username" binding:"exists"`
+		Email    string `form:"email" json:"email" binding:"exists"`
+		Password string `form:"password" json:"password"`
+		Bio      string `form:"bio" json:"bio"`
+		Image    string `form:"image" json:"image"`
+	} `json:"user"`
+	userModel UserModel `json:"-"`
+}
+
 // There are some difference when you create or update a model, you need to fill the DataModel before
 // update so that you can use your origin data to cheat the validator.
 // BTW, you can put your general binding logic here such as setting password.
@@ -41,11 +52,30 @@ func (self *UserModelValidator) Bind(c *gin.Context) error {
 	return nil
 }
 
+func (self *SocialLoginValidator) Bind(c *gin.Context) error {
+	err := common.Bind(c, self)
+	if err != nil {
+		return err
+	}
+	self.userModel.Username = self.User.Username
+	self.userModel.Email = self.User.Email
+	self.userModel.Bio = self.User.Bio
+
+	if self.User.Image != "" {
+		self.userModel.Image = &self.User.Image
+	}
+	return nil
+}
+
 // You can put the default value of a Validator here
 func NewUserModelValidator() UserModelValidator {
 	userModelValidator := UserModelValidator{}
 	//userModelValidator.User.Email ="w@g.cn"
 	return userModelValidator
+}
+func NewSocialLoginValidator() SocialLoginValidator {
+	socialLoginValidator := SocialLoginValidator{}
+	return socialLoginValidator
 }
 
 func NewUserModelValidatorFillWith(userModel UserModel) UserModelValidator {

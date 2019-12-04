@@ -14,11 +14,7 @@ const routes: Routes = [
     component: AuthComponent,
     canActivate: [NoAuthGuard]
   },
-  {
-    path: 'socialLogin',
-    component: AuthComponent,
-    canActivate: [NoAuthGuard]
-  }
+  
 
 ];
 

@@ -18,9 +18,11 @@ func UsersRegister(router *gin.RouterGroup) {
 }
 
 func UsersSocialLogin(router *gin.RouterGroup) {
-	router.GET("/", indexHandler)
+	fmt.Printf("entramos a routers.go")
+	//router.GET("/", indexHandler)
 	router.GET("/auth/:provider", redirectHandler)
 	router.GET("/auth/:provider/callback", callbackHandler)
+
 }
 
 func UserRegister(router *gin.RouterGroup) {
@@ -94,6 +96,7 @@ func UsersRegistration(c *gin.Context) {
 	c.Set("my_user_model", userModelValidator.userModel)
 	serializer := UserSerializer{c}
 	c.JSON(http.StatusCreated, gin.H{"user": serializer.Response()})
+
 }
 
 func UsersLogin(c *gin.Context) {
@@ -144,15 +147,16 @@ func UserUpdate(c *gin.Context) {
 /************************************social login********************************/
 
 //Show homepage with login URL
-func indexHandler(c *gin.Context) {
+// func indexHandler(c *gin.Context) {
 
-	c.Writer.Write([]byte("<html><head><title>Gocialite example</title></head><body>" +
-		"<a href='/auth/github'><button>Login with GitHub</button></a><br>" +
-		"</body></html>"))
-}
+// 	c.Writer.Write([]byte("<html><head><title>Gocialite example</title></head><body>" +
+// 		"<a href='/auth/github'><button>Login with GitHub</button></a><br>" +
+// 		"</body></html>"))
+// }
 
 // Redirect to correct oAuth URL
 func redirectHandler(c *gin.Context) {
+	fmt.Printf("estamos en redirectHandler")
 	// Retrieve provider from route
 	provider := c.Param("provider")
 
@@ -160,9 +164,9 @@ func redirectHandler(c *gin.Context) {
 	// for example, in revel you could use revel.Config.StringDefault(provider + "_clientID", "") etc.
 	providerSecrets := map[string]map[string]string{
 		"github": {
-			"clientID":     "54b66a2c7590fd7df695",
-			"clientSecret": "d4e933ea85b321b9c235372eb2a4a6c75293501d",
-			"redirectURL":  "http://localhost:9091/auth/github/callback",
+			"clientID":     "b9563aec19bb264601a1",
+			"clientSecret": "6c5cd9388386a6461a007576f4bfba1a7d144408",
+			"redirectURL":  "http://localhost:8090/api/socialLogin/auth/github/callback",
 		},
 	}
 
@@ -193,6 +197,7 @@ func redirectHandler(c *gin.Context) {
 
 // Handle callback of provider
 func callbackHandler(c *gin.Context) {
+	fmt.Printf("estamos en callback")
 	// Retrieve query params for state and code
 	state := c.Query("state")
 	code := c.Query("code")
@@ -214,6 +219,96 @@ func callbackHandler(c *gin.Context) {
 	c.Writer.Write([]byte("Email: " + user.Email + "\n"))
 	c.Writer.Write([]byte("Username: " + user.Username + "\n"))
 	c.Writer.Write([]byte("Avatar: " + user.Avatar + "\n"))
+
+	userModel, err := FindOneUser(&UserModel{Username: user.Username})
+
+	if err != nil {
+		fmt.Printf("entra al if")
+
+		// 	// c.JSON(http.StatusForbidden, common.NewError("login", errors.New("Not Registered email or invalid password")))
+		// 	// return
+		// 	//SI EL USUARIO NO EXISTE, LO REGISTRAMOS
+
+		// 	//ESTRUCTURA DE USERMODEL
+
+		// type UserModel struct {
+		// 	ID           uint    `gorm:"primary_key"`
+		// 	Username     string  `gorm:"column:username"`
+		// 	Email        string  `gorm:"column:email;unique_index"`
+		// 	Bio          string  `gorm:"column:bio;size:1024"`
+		// 	Image        *string `gorm:"column:image"`
+		// 	PasswordHash string  `gorm:"column:password;not null"`
+		// }
+
+		// 	// userModel.ID = se asigna automáticamente
+		userModel.Username = user.Username
+		userModel.Email = user.Email
+		userModel.Bio = user.FullName
+		//userModel.Image = user.Avatar
+		userModel.Image = nil
+		userModel.PasswordHash = "12345678"
+
+		socialLoginValidator := NewSocialLoginValidator()
+
+		if err := socialLoginValidator.Bind(c); err != nil {
+			c.JSON(http.StatusUnprocessableEntity, common.NewValidatorError(err))
+			return
+		}
+		fmt.Printf("tras el social login validator")
+
+		fmt.Printf("%#v", userModel)
+
+		if err := SaveOne(userModel); err != nil {
+			c.JSON(http.StatusUnprocessableEntity, common.NewError("database", err))
+			return
+		}
+		fmt.Printf("tras el save One")
+		// 	// c.Set("my_user_model", socialLoginValidator.userModel)
+		// 	// serializer := UserSerializer{c}
+		// 	// c.JSON(http.StatusCreated, gin.H{"user": serializer.Response()})
+		// 	fmt.Printf("imprimo el contexto de gin")
+		// 	fmt.Printf("%#", c)
+
+		// 	if err := SaveOne(userModel); err != nil {
+		// 		c.JSON(http.StatusUnprocessableEntity, common.NewError("database", err))
+		// 		return
+		// 	}
+		//guardem en contexte de gin
+		// 	// c.Set("my_user_model", socialLoginValidator.userModel)
+		// 	// serializer := UserSerializer{c}
+		// 	// c.JSON(http.StatusCreated, gin.H{"user": serializer.Response()})
+
+		// 	//aquí hacemos el redirect
+
+	} else {
+		//guardamos el usuario en base de datos
+
+		// if err := SaveOne(userModel); err != nil {
+		// 	c.JSON(http.StatusUnprocessableEntity, common.NewError("database", err))
+		// 	return
+		// }
+		// //guardamos usuario en contexto de gin
+		// c.Set("my_user_model", userModel)
+		// serializer := UserSerializer{c}
+		// c.JSON(http.StatusCreated, gin.H{"user": serializer.Response()})
+
+		// socialLoginValidator := NewSocialLoginValidator()
+
+		// if err := socialLoginValidator.Bind(c); err != nil {
+		// 	c.JSON(http.StatusUnprocessableEntity, common.NewValidatorError(err))
+		// 	return
+		// }
+
+		// if err := SaveOne(&socialLoginValidator.userModel); err != nil {
+		// 	c.JSON(http.StatusUnprocessableEntity, common.NewError("database", err))
+		// 	return
+		// }
+		// c.Set("my_user_model", socialLoginValidator.userModel)
+		// serializer := UserSerializer{c}
+		// c.JSON(http.StatusCreated, gin.H{"user": serializer.Response()})
+
+	}
+
 }
 
 /**********************************************social login*************************************/

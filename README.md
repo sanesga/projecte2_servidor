@@ -93,13 +93,13 @@ GET http://localhost:8090/api/books/slug
 
 ### Backend Dockerized
 
-- Build container:
+- Build image:
    - sudo docker build -t back_go .
 
 - See images:
    - sudo docker images -a
 
-- Run container:
+- Build container:
   - sudo docker run -p 8090:8090 --name container_backend back_go
 
 - See container:
@@ -115,6 +115,10 @@ GET http://localhost:8090/api/books/slug
 - Delete old containers:
 
   - sudo docker rm containerName
+
+### Docker compose
+
+- sudo docker-compose up
 
 
 ### Run Backend Swagger

@@ -38,7 +38,7 @@ func redirectHandler(c *gin.Context) {
 		"github": {
 			"clientID":     "54b66a2c7590fd7df695",
 			"clientSecret": "d4e933ea85b321b9c235372eb2a4a6c75293501d",
-			"redirectURL":  "http://localhost:9091/auth/github/callback",
+			"redirectURL":  "http://localhost:3003/auth/github/callback",
 		},
 	}
 
