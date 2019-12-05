@@ -2,9 +2,10 @@ package common
 
 import (
 	"fmt"
+	"os"
+
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/sqlite"
-	"os"
 )
 
 type Database struct {
@@ -22,6 +23,9 @@ func Init() *gorm.DB {
 	db.DB().SetMaxIdleConns(10)
 	//db.LogMode(true)
 	DB = db
+	//BORRAMOS LA BASE DE DATOS
+	//err2 := os.Remove("./../gorm.db")
+	//fmt.Println("db err: ", err2)
 	return DB
 }
 
@@ -48,3 +52,11 @@ func TestDBFree(test_db *gorm.DB) error {
 func GetDB() *gorm.DB {
 	return DB
 }
+
+// func SeeUsers() *gorm.DB {
+// 	db, err := gorm.Open("sqlite3", "./../gorm.db")
+// 	rows := db.Raw("select * from gorm.db").Scan("users")
+// 	fmt.Printf("%#v", rows)
+// 	fmt.Printf("%#v", err)
+// 	return nil
+// }

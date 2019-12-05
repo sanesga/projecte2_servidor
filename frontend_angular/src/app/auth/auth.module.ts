@@ -2,6 +2,7 @@ import { ModuleWithProviders, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 import { AuthComponent } from './auth.component';
+import { AuthSocialComponent } from './auth-social.component';
 import { NoAuthGuard } from './no-auth-guard.service';
 import { SharedModule } from '../shared';
 import { AuthRoutingModule } from './auth-routing.module';
@@ -12,7 +13,8 @@ import { AuthRoutingModule } from './auth-routing.module';
     AuthRoutingModule
   ],
   declarations: [
-    AuthComponent
+    AuthComponent,
+    AuthSocialComponent
   ],
   providers: [
     NoAuthGuard

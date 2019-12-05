@@ -28,6 +28,7 @@ func main() {
 
 	db := common.Init()
 	Migrate(db)
+	//common.seeUsers()
 	defer db.Close()
 
 	r := gin.Default()

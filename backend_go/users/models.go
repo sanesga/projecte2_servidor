@@ -16,10 +16,10 @@ import (
 type UserModel struct {
 	ID           uint    `gorm:"primary_key"`
 	Username     string  `gorm:"column:username"`
-	Email        string  `gorm:"column:email;unique_index"`
-	Bio          string  `gorm:"column:bio;size:1024"`
+	Email        string  `gorm:"column:email"`
+	Bio          string  `gorm:"column:bio"`
 	Image        *string `gorm:"column:image"`
-	PasswordHash string  `gorm:"column:password;not null"`
+	PasswordHash string  `gorm:"column:password"`
 }
 
 // A hack way to save ManyToMany relationship,
@@ -93,6 +93,11 @@ func SaveOne(data interface{}) error {
 func (model *UserModel) Update(data interface{}) error {
 	db := common.GetDB()
 	err := db.Model(model).Update(data).Error
+	return err
+}
+func (model *UserModel) Delete(data interface{}) error {
+	db := common.GetDB()
+	err := db.Model(model).Delete(data).Error
 	return err
 }
 
