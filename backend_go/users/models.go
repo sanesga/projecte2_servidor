@@ -79,6 +79,12 @@ func FindOneUser(condition interface{}) (UserModel, error) {
 	err := db.Where(condition).First(&model).Error
 	return model, err
 }
+func getAll() ([]UserModel, error) {
+	db := common.GetDB()
+	var models []UserModel
+	err := db.Find(&models).Error
+	return models, err
+}
 
 // You could input an UserModel which will be saved in database returning with error info
 // 	if err := SaveOne(&userModel); err != nil { ... }

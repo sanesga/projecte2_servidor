@@ -1,10 +1,32 @@
 package users
 
 import (
+	"fmt"
+
 	"gopkg.in/gin-gonic/gin.v1"
 
 	"github.com/proyecto/backend_go/common"
 )
+
+//nos creamos nuestro propio serializer, pasándole el contexto y el usuario
+type socialUserSerializer struct {
+	C *gin.Context
+	UserModel
+}
+
+//nos devuelve el mail
+type socialUserResponse struct {
+	Email string `json:"email"`
+}
+
+func (self *socialUserSerializer) Response() socialUserResponse {
+	//recupera el usuario del contexto de gin
+	myUserModel := self.C.MustGet("my_user_model").(UserModel)
+	user := socialUserResponse{
+		Email: myUserModel.Email,
+	}
+	return user
+}
 
 type ProfileSerializer struct {
 	C *gin.Context
@@ -55,4 +77,45 @@ func (self *UserSerializer) Response() UserResponse {
 		Token:    common.GenToken(myUserModel.ID),
 	}
 	return user
+}
+
+type UsersSerializer struct {
+	C     *gin.Context
+	Users []UserModel
+}
+
+func (s *UsersSerializer) Response() []UsuarioResponse {
+	response := []UsuarioResponse{}
+	for _, user := range s.Users {
+		serializer := UsuarioSerializer{s.C, user}
+		fmt.Printf("c.Request.Method \n")
+		response = append(response, serializer.Response())
+	}
+	return response
+}
+
+type UsuarioSerializer struct {
+	C *gin.Context
+	UserModel
+}
+
+type UsuarioResponse struct {
+	Username     string  `json:"username"`
+	Email        string  `json:"email"`
+	Bio          string  `json:"bio"`
+	Image        *string `json:"image"`
+	Token        string  `json:"token"`
+	PasswordHash string  `json:"password"`
+}
+
+func (s *UsuarioSerializer) Response() UsuarioResponse {
+	response := UsuarioResponse{
+		Username:     s.Username,
+		Email:        s.Email,
+		Bio:          s.Bio,
+		Image:        s.Image,
+		Token:        common.GenToken(s.ID),
+		PasswordHash: s.PasswordHash,
+	}
+	return response
 }

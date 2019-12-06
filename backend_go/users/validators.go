@@ -93,8 +93,8 @@ func NewUserModelValidatorFillWith(userModel UserModel) UserModelValidator {
 
 type LoginValidator struct {
 	User struct {
-		Email    string `form:"email" json:"email""`
-		Password string `form:"password"json:"password""`
+		Email    string `form:"email" json:"email"`
+		Password string `form:"password"json:"password"`
 	} `json:"user"`
 	userModel UserModel `json:"-"`
 }

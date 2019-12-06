@@ -16,7 +16,7 @@ const routes: Routes = [
     canActivate: [NoAuthGuard]
   },
   {
-    path: 'social',
+    path: 'social/:email',
     component: AuthSocialComponent,
     canActivate: [NoAuthGuard]
   }

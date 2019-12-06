@@ -23,7 +23,7 @@ func Init() *gorm.DB {
 	db.DB().SetMaxIdleConns(10)
 	//db.LogMode(true)
 	DB = db
-	//BORRAMOS LA BASE DE DATOS
+	//CUANDO QUEREMOS BORRAR LA BASE DE DATOS
 	//err2 := os.Remove("./../gorm.db")
 	//fmt.Println("db err: ", err2)
 	return DB

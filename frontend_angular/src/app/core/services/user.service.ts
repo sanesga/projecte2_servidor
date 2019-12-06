@@ -38,6 +38,8 @@ export class UserService {
     }
   }
 
+ 
+
   setAuth(user: User) {
     // Save JWT sent from server in localstorage
     this.jwtService.saveToken(user.token);
@@ -57,12 +59,27 @@ export class UserService {
   }
 
   attemptAuth(type, credentials): Observable<User> {
+    console.log("entra en attemptAuth");
+    console.log(credentials);
     const route = (type === 'login') ? 'login' : '';
     return this.apiService.post('/users/' + route, {user: credentials})
       .pipe(map(
-      data => {
+      data => { 
+        console.log("nos da los datos")
+        console.log(data.user);
         this.setAuth(data.user);
         return data;
+      }
+    ));
+  }
+
+  getUser(userName): Observable<User> {
+    console.log("entra en get user en user.service.ts")
+    return this.apiService.get('/social/' + userName)
+      .pipe(map(
+      data => {
+       // this.setAuth(data.user);
+        return data.user;
       }
     ));
   }

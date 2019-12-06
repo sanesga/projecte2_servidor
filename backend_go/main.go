@@ -38,7 +38,12 @@ func main() {
 	/*no requiere token*/
 	v1 := r.Group("/api")
 	users.UsersRegister(v1.Group("/users"))
+	//recupera los datos del usuario de github
 	users.UsersSocialLogin(v1.Group("/socialLogin"))
+	//VER TODOS LOS USUARIOS
+	users.VerTodos(v1.Group("/usuarios"))
+	//recupera el mail del usuario que va a hacer login
+	//users.UserSocial(v1.Group("/social"))
 
 	v1.Use(users.AuthMiddleware(false))
 	articles.ArticlesAnonymousRegister(v1.Group("/articles"))
@@ -49,7 +54,6 @@ func main() {
 
 	/*sí requiere token*/
 	v1.Use(users.AuthMiddleware(true))
-	users.UserRegister(v1.Group("/user"))
 	users.ProfileRegister(v1.Group("/profiles"))
 	articles.ArticlesRegister(v1.Group("/articles"))
 

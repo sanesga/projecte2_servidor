@@ -15,26 +15,60 @@ var gocial = gocialite.NewDispatcher()
 func UsersRegister(router *gin.RouterGroup) {
 	router.POST("/", UsersRegistration)
 	router.POST("/login", UsersLogin)
+
+}
+func VerTodos(router *gin.RouterGroup) {
+	fmt.Printf("entra a ver todos")
+	router.GET("/", VerUsers) /*llama al método BookList (más abajo*/
 }
 
+//Rutas para hacer el social login
 func UsersSocialLogin(router *gin.RouterGroup) {
-	fmt.Printf("entramos a routers.go")
-	//router.GET("/", indexHandler)
 	router.GET("/auth/:provider", redirectHandler)
 	router.GET("/auth/:provider/callback", callbackHandler)
+}
 
+//Ruta parar recuperar el email del usuario, tras hacer el social login
+func UserSocial(router *gin.RouterGroup) {
+	router.GET("/:username", getUser)
 }
 
 func UserRegister(router *gin.RouterGroup) {
 	router.GET("/", UserRetrieve)
 	router.PUT("/", UserUpdate)
-	router.DELETE("/", UserDelete)
+	//router.DELETE("/", UserDelete) //NO FUNCIONA TODAVÍA
 }
 
 func ProfileRegister(router *gin.RouterGroup) {
 	router.GET("/:username", ProfileRetrieve)
 	router.POST("/:username/follow", ProfileFollow)
 	router.DELETE("/:username/follow", ProfileUnfollow)
+}
+func VerUsers(c *gin.Context) {
+	userModels, err := getAll()
+	if err != nil {
+		c.JSON(http.StatusNotFound, common.NewError("users", errors.New("Invalid param")))
+		return
+	}
+	serializer := UsersSerializer{c, userModels}
+	c.JSON(http.StatusOK, gin.H{"user": serializer.Response()})
+}
+func getUser(c *gin.Context) {
+	//OBTENER EL MAIL DEL USUARIO DE LA BASE DE DATOS
+	//le pasamos el slug por la petición get desde el frontend
+	slug := c.Param("slug")
+	//buscamos el usuario
+	userModel, err := FindOneUser(&UserModel{Username: slug})
+	if err != nil {
+		c.JSON(http.StatusNotFound, common.NewError("user", errors.New("Invalid username")))
+		return
+	}
+	//guardamos en contexto de gin
+	c.Set("my_user_model", userModel)
+	//le pasamos nuestro propio serializer que devuelve solo el email (lo necesitamos para hacer login)
+	serializer := socialUserSerializer{c, userModel}
+	//el serializer nos devuelve los datos
+	c.JSON(http.StatusOK, gin.H{"user": serializer.Response()})
 }
 
 func ProfileRetrieve(c *gin.Context) {
@@ -101,12 +135,19 @@ func UsersRegistration(c *gin.Context) {
 }
 
 func UsersLogin(c *gin.Context) {
+	fmt.Printf("estamos en users login")
 	loginValidator := NewLoginValidator()
+
 	if err := loginValidator.Bind(c); err != nil {
+		fmt.Printf("estamos dentro del validator")
 		c.JSON(http.StatusUnprocessableEntity, common.NewValidatorError(err))
 		return
 	}
+	fmt.Printf("despues del validator")
+
 	userModel, err := FindOneUser(&UserModel{Email: loginValidator.userModel.Email})
+
+	fmt.Printf("%#v", userModel)
 
 	if err != nil {
 		c.JSON(http.StatusForbidden, common.NewError("login", errors.New("Not Registered email or invalid password")))
@@ -120,6 +161,8 @@ func UsersLogin(c *gin.Context) {
 	UpdateContextUserModel(c, userModel.ID)
 	serializer := UserSerializer{c}
 	c.JSON(http.StatusOK, gin.H{"user": serializer.Response()})
+
+	fmt.Printf("fin del login")
 }
 
 func UserRetrieve(c *gin.Context) {
@@ -144,37 +187,29 @@ func UserUpdate(c *gin.Context) {
 	serializer := UserSerializer{c}
 	c.JSON(http.StatusOK, gin.H{"user": serializer.Response()})
 }
-func UserDelete(c *gin.Context) {
-	myUserModel := c.MustGet("my_user_model").(UserModel)
-	userModelValidator := NewUserModelValidatorFillWith(myUserModel)
-	if err := userModelValidator.Bind(c); err != nil {
-		c.JSON(http.StatusUnprocessableEntity, common.NewValidatorError(err))
-		return
-	}
 
-	userModelValidator.userModel.ID = myUserModel.ID
-	if err := myUserModel.Delete(userModelValidator.userModel); err != nil {
-		c.JSON(http.StatusUnprocessableEntity, common.NewError("database", err))
-		return
-	}
-	UpdateContextUserModel(c, myUserModel.ID)
-	serializer := UserSerializer{c}
-	c.JSON(http.StatusOK, gin.H{"user": serializer.Response()})
-}
+// func UserDelete(c *gin.Context) {
+// 	myUserModel := c.MustGet("my_user_model").(UserModel)
+// 	userModelValidator := NewUserModelValidatorFillWith(myUserModel)
+// 	if err := userModelValidator.Bind(c); err != nil {
+// 		c.JSON(http.StatusUnprocessableEntity, common.NewValidatorError(err))
+// 		return
+// 	}
+
+// 	userModelValidator.userModel.ID = myUserModel.ID
+// 	if err := myUserModel.Delete(userModelValidator.userModel); err != nil {
+// 		c.JSON(http.StatusUnprocessableEntity, common.NewError("database", err))
+// 		return
+// 	}
+// 	UpdateContextUserModel(c, myUserModel.ID)
+// 	serializer := UserSerializer{c}
+// 	c.JSON(http.StatusOK, gin.H{"user": serializer.Response()})
+// }
 
 /************************************social login********************************/
 
-//Show homepage with login URL
-// func indexHandler(c *gin.Context) {
-
-// 	c.Writer.Write([]byte("<html><head><title>Gocialite example</title></head><body>" +
-// 		"<a href='/auth/github'><button>Login with GitHub</button></a><br>" +
-// 		"</body></html>"))
-// }
-
 // Redirect to correct oAuth URL
 func redirectHandler(c *gin.Context) {
-	//fmt.Printf("estamos en redirectHandler")
 	// Retrieve provider from route
 	provider := c.Param("provider")
 
@@ -215,11 +250,10 @@ func redirectHandler(c *gin.Context) {
 
 // Handle callback of provider
 func callbackHandler(c *gin.Context) {
-	//fmt.Printf("estamos en callback")
 	// Retrieve query params for state and code
 	state := c.Query("state")
 	code := c.Query("code")
-	// provider := c.Param("provider")
+	//provider := c.Param("provider")
 
 	// Handle callback and check for errors
 	user, token, err := gocial.Handle(state, code)
@@ -228,7 +262,6 @@ func callbackHandler(c *gin.Context) {
 		return
 	}
 
-	// Print in terminal user information
 	//fmt.Printf("informacion del usuario")
 	fmt.Printf("%#v", token)
 	fmt.Printf("%#v", user)
@@ -242,47 +275,33 @@ func callbackHandler(c *gin.Context) {
 
 	userModel, err := FindOneUser(&UserModel{Username: user.Username})
 
-	userModel.Username = user.Username
-	userModel.Email = user.Email
-	userModel.Bio = user.FullName
-	userModel.Image = nil
-
 	if err != nil {
-		fmt.Printf("el usuario no existe")
+		//no se ha encontrado el usuario, no existe, hay que registrarlo
 
-		//SI EL USUARIO NO EXISTE, LO REGISTRAMOS
+		//rellenamos los campos con los datos que nos llegan de github
+		userModel.Username = user.Username
+		userModel.Email = user.Email
+		userModel.Bio = user.FullName
+		userModel.Image = nil
+		userModel.PasswordHash = "12345678"
 
-		// 	//ESTRUCTURA DE USERMODEL
-		// type UserModel struct {
-		// 	ID           uint    `gorm:"primary_key"`
-		// 	Username     string  `gorm:"column:username"`
-		// 	Email        string  `gorm:"column:email;unique_index"`
-		// 	Bio          string  `gorm:"column:bio;size:1024"`
-		// 	Image        *string `gorm:"column:image"`
-		// 	PasswordHash string  `gorm:"column:password;not null"`
-		// }
-
-		// 	// userModel.ID = se asigna automáticamente
-
+		//lo guardamos en la base de datos
 		if err := SaveOne(&userModel); err != nil {
 			c.JSON(http.StatusUnprocessableEntity, common.NewError("database", err))
 			return
 		}
-
+		//guardamos en el contexto de gin
 		c.Set("my_user_model", userModel)
-
-		//aquí hacemos el redirect
-		c.Redirect(http.StatusFound, "http://localhost:8081/social")
+		//hacemos el redirect
+		c.Redirect(http.StatusFound, "http://localhost:8081/social"+userModel.Email)
 
 	} else {
-		fmt.Printf("el usuario existe")
-		fmt.Printf("%#", userModel)
 
+		//EL USUARIO EXISTE, HACEMOS LOGIN
+		//guardamos en el contexto de gin
 		c.Set("my_user_model", userModel)
-
-		// 	//aquí hacemos el redirect
-		c.Redirect(http.StatusFound, "http://localhost:8081/social")
-
+		//hacemos el redirect
+		c.Redirect(http.StatusFound, "http://localhost:8081/social/"+userModel.Email)
 	}
 }
 
