@@ -43,7 +43,7 @@ func main() {
 	//VER TODOS LOS USUARIOS
 	users.VerTodos(v1.Group("/usuarios"))
 	//recupera el mail del usuario que va a hacer login
-	//users.UserSocial(v1.Group("/social"))
+	users.UserSocial(v1.Group("/usuario"))
 
 	v1.Use(users.AuthMiddleware(false))
 	articles.ArticlesAnonymousRegister(v1.Group("/articles"))

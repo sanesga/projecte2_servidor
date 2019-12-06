@@ -59,14 +59,14 @@ export class UserService {
   }
 
   attemptAuth(type, credentials): Observable<User> {
-    console.log("entra en attemptAuth");
-    console.log(credentials);
+    //console.log("entra en attemptAuth");
+    //console.log(credentials);
     const route = (type === 'login') ? 'login' : '';
-    return this.apiService.post('/users/' + route, {user: credentials})
+    return this.apiService.post('/users/' + type, {user: credentials})
       .pipe(map(
       data => { 
-        console.log("nos da los datos")
-        console.log(data.user);
+       // console.log("nos da los datos")
+      //  console.log(data.user);
         this.setAuth(data.user);
         return data;
       }
@@ -74,11 +74,14 @@ export class UserService {
   }
 
   getUser(userName): Observable<User> {
-    console.log("entra en get user en user.service.ts")
-    return this.apiService.get('/social/' + userName)
+    //console.log("entra en get user en user.service.ts")
+   // console.log(userName)
+    return this.apiService.get('/usuario/' + userName)
       .pipe(map(
       data => {
-       // this.setAuth(data.user);
+        //console.log("datos recuperados en getuser");
+       // console.log(data.user);
+       this.setAuth(data.user);
         return data.user;
       }
     ));

@@ -28,7 +28,7 @@ func UsersSocialLogin(router *gin.RouterGroup) {
 	router.GET("/auth/:provider/callback", callbackHandler)
 }
 
-//Ruta parar recuperar el email del usuario, tras hacer el social login
+//Ruta parar recuperar los datos del usuario, tras hacer el social login
 func UserSocial(router *gin.RouterGroup) {
 	router.GET("/:username", getUser)
 }
@@ -57,6 +57,7 @@ func getUser(c *gin.Context) {
 	//OBTENER EL MAIL DEL USUARIO DE LA BASE DE DATOS
 	//le pasamos el slug por la petición get desde el frontend
 	slug := c.Param("slug")
+	fmt.Printf("%#v", slug)
 	//buscamos el usuario
 	userModel, err := FindOneUser(&UserModel{Username: slug})
 	if err != nil {

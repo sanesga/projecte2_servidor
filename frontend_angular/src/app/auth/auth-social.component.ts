@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { Errors, UserService } from '../core';
+import { Errors, UserService, User } from '../core';
 import { BehaviorSubject } from 'rxjs';
 
 @Component({
@@ -15,6 +15,7 @@ export class AuthSocialComponent implements OnInit {
   errors: Errors = { errors: {} };
   isSubmitting = false;
   authForm: FormGroup;
+  user: User;
   
 
   constructor(
@@ -30,7 +31,7 @@ export class AuthSocialComponent implements OnInit {
     this.route.url.subscribe(data => {
       // Get the last piece of the URL
       this.authType = data[data.length - 1].path;
-     console.log(this.authType)
+     //console.log(this.authType)
         this.loginSocial();
     });
 
@@ -42,24 +43,12 @@ export class AuthSocialComponent implements OnInit {
     this.isSubmitting = true;
     this.errors = { errors: {} };
 
-      // const credentials = this.authForm.value;
      
-      var user = {
-        email: this.authType,
-        password: "12345678"
-    };
-
-    console.log(user) 
-    console.log(typeof(user))
-      
-    this.userService
-      .attemptAuth('login', user)
-      .subscribe(
-        data => this.router.navigateByUrl('/'),
-        err => {
-          this.errors = err;
-          this.isSubmitting = false;
-        }
-      );
+    //RECUPERAMOS EL USUARIO DE LA BASE DE DATOS A TRAVÉS DEL NOMBRE
+    this.userService.getUser(this.authType)
+      .subscribe(data =>{
+        console.log(data)
+        this.user = data
+      } );
   }
 }
