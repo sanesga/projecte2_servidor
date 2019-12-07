@@ -121,7 +121,10 @@ GET http://localhost:8090/api/books/slug
 - sudo docker-compose up
 
 
-### Run Backend Swagger
+### Run Backend Swagger 
+
+Falta:
+ - añadir localhost:8090/api/users -- get all users
 
 In directory cd /home/sandra/go/src/github.com/proyecto/swagger
 

@@ -28,34 +28,36 @@ func main() {
 
 	db := common.Init()
 	Migrate(db)
-	//common.seeUsers()
 	defer db.Close()
 
 	r := gin.Default()
 
 	MakeRoutes(r) //habilita els CORS
 
-	/*no requiere token*/
+	//a todas las peticiones se les agregará /api/ automáticamente
 	v1 := r.Group("/api")
-	users.UsersRegister(v1.Group("/users"))
-	//recupera los datos del usuario de github
-	users.UsersSocialLogin(v1.Group("/socialLogin"))
-	//VER TODOS LOS USUARIOS
-	users.VerTodos(v1.Group("/usuarios"))
-	//recupera el mail del usuario que va a hacer login
-	users.UserSocial(v1.Group("/usuario"))
 
+	/************************************NO REQUIEREN TOKEN************************************/
 	v1.Use(users.AuthMiddleware(false))
+	//usuarios (getAll, getOne, register and login)
+	users.UsersRegister(v1.Group("/users"))
+	//social login
+	users.UsersSocialLogin(v1.Group("/socialLogin"))
+	//articulos
 	articles.ArticlesAnonymousRegister(v1.Group("/articles"))
 	articles.TagsAnonymousRegister(v1.Group("/tags"))
-
-	books.BooksAnonymousRegister(v1.Group("/books")) /*Esto llama a routes.go*/
+	//libros
+	books.BooksAnonymousRegister(v1.Group("/books"))
 	books.BooksRegister(v1.Group("/books"))
 
-	/*sí requiere token*/
+	/************************************SÍ REQUIEREN TOKEN************************************/
 	v1.Use(users.AuthMiddleware(true))
+	//perfiles
 	users.ProfileRegister(v1.Group("/profiles"))
+	//articulos
 	articles.ArticlesRegister(v1.Group("/articles"))
+	//usuarios (modificar y getOne)
+	users.UserRegister(v1.Group("/user"))
 
 	r.Run(":8090") // listen and serve on localhost:8090
 }
@@ -72,13 +74,6 @@ func MakeRoutes(r *gin.Engine) {
 			c.AbortWithStatus(200)
 		}
 		c.Next()
-
-		/*
-			fmt.Printf("c.Request.Method \n")
-			fmt.Printf(c.Request.Method)
-			fmt.Printf("c.Request.RequestURI \n")
-			fmt.Printf(c.Request.RequestURI)
-		*/
 	}
 	r.Use(cors)
 }

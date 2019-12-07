@@ -8,7 +8,7 @@ import (
 	"github.com/proyecto/backend_go/common"
 )
 
-//nos creamos nuestro propio serializer, pasándole el contexto y el usuario
+//SERIALIZER DEL SOCIAL LOGIN
 type socialUserSerializer struct {
 	C *gin.Context
 	UserModel
@@ -36,6 +36,7 @@ func (self *socialUserSerializer) Response() socialUserResponse {
 	return user
 }
 
+//SERIALIZER DE LOS PERFILES
 type ProfileSerializer struct {
 	C *gin.Context
 	UserModel
@@ -63,6 +64,7 @@ func (self *ProfileSerializer) Response() ProfileResponse {
 	return profile
 }
 
+//SERIALIZER PARA UN USUARIO GENERAL (NO DE SOCIAL LOGIN)
 type UserSerializer struct {
 	c *gin.Context
 }
@@ -87,6 +89,7 @@ func (self *UserSerializer) Response() UserResponse {
 	return user
 }
 
+//SERIALIZER PARA GET ALL USERS
 type UsersSerializer struct {
 	C     *gin.Context
 	Users []UserModel
@@ -102,11 +105,11 @@ func (s *UsersSerializer) Response() []UsuarioResponse {
 	return response
 }
 
+//SERIALIZER PARA GET ONE USER (DE SOCIAL LOGIN)
 type UsuarioSerializer struct {
 	C *gin.Context
 	UserModel
 }
-
 type UsuarioResponse struct {
 	Username     string  `json:"username"`
 	Email        string  `json:"email"`

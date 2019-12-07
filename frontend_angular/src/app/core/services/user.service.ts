@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable ,  BehaviorSubject ,  ReplaySubject } from 'rxjs';
-
 import { ApiService } from './api.service';
 import { JwtService } from './jwt.service';
 import { User } from '../models';
@@ -38,8 +37,6 @@ export class UserService {
     }
   }
 
- 
-
   setAuth(user: User) {
     // Save JWT sent from server in localstorage
     this.jwtService.saveToken(user.token);
@@ -73,14 +70,12 @@ export class UserService {
     ));
   }
 
+  //obtenemos un usuario, a través de su nombre
   getUser(userName): Observable<User> {
-    //console.log("entra en get user en user.service.ts")
-   // console.log(userName)
-    return this.apiService.get('/usuario/' + userName)
+    return this.apiService.get('/users/' + userName)
       .pipe(map(
       data => {
-        //console.log("datos recuperados en getuser");
-       // console.log(data.user);
+        //una vez conseguimos el usuario, guardamos los datos para mostrarlos
        this.setAuth(data.user);
         return data.user;
       }
@@ -101,7 +96,4 @@ export class UserService {
       return data.user;
     }));
   }
-
-  
-
 }

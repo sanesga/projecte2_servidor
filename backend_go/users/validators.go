@@ -67,10 +67,8 @@ func (self *SocialLoginValidator) Bind(c *gin.Context) error {
 	return nil
 }
 
-// You can put the default value of a Validator here
 func NewUserModelValidator() UserModelValidator {
 	userModelValidator := UserModelValidator{}
-	//userModelValidator.User.Email ="w@g.cn"
 	return userModelValidator
 }
 func NewSocialLoginValidator() SocialLoginValidator {
