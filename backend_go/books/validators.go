@@ -3,6 +3,7 @@ package books
 import (
 	"github.com/gosimple/slug"
 	"github.com/proyecto/backend_go/common"
+	"github.com/proyecto/backend_go/users"
 	"gopkg.in/gin-gonic/gin.v1"
 )
 
@@ -42,5 +43,28 @@ func (s *BookModelValidator) Bind(c *gin.Context) error {
 	s.bookModel.Description = s.Book.Description
 	s.bookModel.Category = s.Book.Category
 	s.bookModel.Author = s.Book.Author
+	return nil
+}
+
+type CommentModelValidator struct {
+	Comment struct {
+		Body string `form:"body" json:"body" binding:"max=2048"`
+	} `json:"comment"`
+	commentModel CommentModel `json:"-"`
+}
+
+func NewCommentModelValidator() CommentModelValidator {
+	return CommentModelValidator{}
+}
+
+func (s *CommentModelValidator) Bind(c *gin.Context) error {
+	myUserModel := c.MustGet("my_user_model").(users.UserModel)
+
+	err := common.Bind(c, s)
+	if err != nil {
+		return err
+	}
+	s.commentModel.Body = s.Comment.Body
+	s.commentModel.Author = GetBookUserModel(myUserModel)
 	return nil
 }

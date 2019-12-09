@@ -5,6 +5,7 @@ import (
 
 	"github.com/jinzhu/gorm"
 	"github.com/proyecto/backend_go/common"
+	"github.com/proyecto/backend_go/users"
 )
 
 type BookModel struct {
@@ -15,6 +16,45 @@ type BookModel struct {
 	Category    string
 	Author      string
 	Price       uint
+	Comments    []CommentModel `gorm:"ForeignKey:BookID"`
+}
+type CommentModel struct {
+	gorm.Model
+	Book     BookModel
+	BookID   uint
+	Author   BookUserModel
+	AuthorID uint
+	Body     string `gorm:"size:2048"`
+}
+type BookUserModel struct {
+	gorm.Model
+	UserModel   users.UserModel
+	UserModelID uint
+	BookModels  []BookModel `gorm:"ForeignKey:AuthorID"`
+}
+
+func GetBookUserModel(userModel users.UserModel) BookUserModel {
+	var bookUserModel BookUserModel
+	if userModel.ID == 0 {
+		return bookUserModel
+	}
+	db := common.GetDB()
+	db.Where(&BookUserModel{
+		UserModelID: userModel.ID,
+	}).FirstOrCreate(&bookUserModel)
+	bookUserModel.UserModel = userModel
+	return bookUserModel
+}
+func (self *BookModel) getComments() error {
+	db := common.GetDB()
+	tx := db.Begin()
+	tx.Model(self).Related(&self.Comments, "Comments")
+	for i, _ := range self.Comments {
+		tx.Model(&self.Comments[i]).Related(&self.Comments[i].Author, "Author")
+		tx.Model(&self.Comments[i].Author).Related(&self.Comments[i].Author.UserModel)
+	}
+	err := tx.Commit().Error
+	return err
 }
 
 func SaveOne(data interface{}) error {
@@ -48,5 +88,11 @@ func (model *BookModel) Update(data interface{}) error {
 func DeleteBookModel(condition interface{}) error {
 	db := common.GetDB()
 	err := db.Where(condition).Delete(BookModel{}).Error
+	return err
+}
+
+func DeleteCommentModel(condition interface{}) error {
+	db := common.GetDB()
+	err := db.Where(condition).Delete(CommentModel{}).Error
 	return err
 }

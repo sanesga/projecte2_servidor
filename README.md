@@ -4,7 +4,8 @@ Functions:
 
 - Login and register
 - Book's list and details
-- Social login (github) -- en curso
+- Social login (github)
+- Favourite books -- En curso
 
 ## Frontend
 
@@ -14,6 +15,7 @@ Functions:
 
 - Go
 - SQLite
+- Docker
 
 ## Backend Swagger
 
