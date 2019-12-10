@@ -29,18 +29,18 @@ func BookCommentCreate(c *gin.Context) {
 		c.JSON(http.StatusNotFound, common.NewError("comment", errors.New("Invalid slug")))
 		return
 	}
-	commentModelValidator := NewCommentModelValidator()
-	if err := commentModelValidator.Bind(c); err != nil {
+	commentBookModelValidator := NewCommentBookModelValidator()
+	if err := commentBookModelValidator.Bind(c); err != nil {
 		c.JSON(http.StatusUnprocessableEntity, common.NewValidatorError(err))
 		return
 	}
-	commentModelValidator.commentModel.Book = bookModel
+	commentBookModelValidator.commentBookModel.Book = bookModel
 
-	if err := SaveOne(&commentModelValidator.commentModel); err != nil {
+	if err := SaveOne(&commentBookModelValidator.commentBookModel); err != nil {
 		c.JSON(http.StatusUnprocessableEntity, common.NewError("database", err))
 		return
 	}
-	serializer := CommentSerializer{c, commentModelValidator.commentModel}
+	serializer := CommentSerializer{c, commentBookModelValidator.commentBookModel}
 	c.JSON(http.StatusCreated, gin.H{"comment": serializer.Response()})
 }
 func BookCommentDelete(c *gin.Context) {
@@ -50,7 +50,7 @@ func BookCommentDelete(c *gin.Context) {
 		c.JSON(http.StatusNotFound, common.NewError("comment", errors.New("Invalid id")))
 		return
 	}
-	err = DeleteCommentModel([]uint{id})
+	err = DeleteCommentBookModel([]uint{id})
 	if err != nil {
 		c.JSON(http.StatusNotFound, common.NewError("comment", errors.New("Invalid id")))
 		return

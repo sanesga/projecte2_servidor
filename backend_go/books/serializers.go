@@ -60,11 +60,11 @@ func (s *BookUserSerializer) Response() users.ProfileResponse {
 
 type CommentSerializer struct {
 	C *gin.Context
-	CommentModel
+	CommentBookModel
 }
 type CommentsSerializer struct {
 	C        *gin.Context
-	Comments []CommentModel
+	Comments []CommentBookModel
 }
 type CommentResponse struct {
 	ID        uint                  `json:"id"`

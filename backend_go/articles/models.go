@@ -45,11 +45,11 @@ type TagModel struct {
 
 type CommentModel struct {
 	gorm.Model
-	Article   ArticleModel
-	ArticleID uint
-	Author    ArticleUserModel
-	AuthorID  uint
-	Body      string `gorm:"size:2048"`
+	Article ArticleModel
+	uint
+	Author   ArticleUserModel
+	AuthorID uint
+	Body     string `gorm:"size:2048"`
 }
 
 func GetArticleUserModel(userModel users.UserModel) ArticleUserModel {

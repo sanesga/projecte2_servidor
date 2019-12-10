@@ -46,25 +46,25 @@ func (s *BookModelValidator) Bind(c *gin.Context) error {
 	return nil
 }
 
-type CommentModelValidator struct {
+type CommentBookModelValidator struct {
 	Comment struct {
 		Body string `form:"body" json:"body" binding:"max=2048"`
 	} `json:"comment"`
-	commentModel CommentModel `json:"-"`
+	commentBookModel CommentBookModel `json:"-"`
 }
 
-func NewCommentModelValidator() CommentModelValidator {
-	return CommentModelValidator{}
+func NewCommentBookModelValidator() CommentBookModelValidator {
+	return CommentBookModelValidator{}
 }
 
-func (s *CommentModelValidator) Bind(c *gin.Context) error {
+func (s *CommentBookModelValidator) Bind(c *gin.Context) error {
 	myUserModel := c.MustGet("my_user_model").(users.UserModel)
 
 	err := common.Bind(c, s)
 	if err != nil {
 		return err
 	}
-	s.commentModel.Body = s.Comment.Body
-	s.commentModel.Author = GetBookUserModel(myUserModel)
+	s.commentBookModel.Body = s.Comment.Body
+	s.commentBookModel.Author = GetBookUserModel(myUserModel)
 	return nil
 }

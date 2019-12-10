@@ -22,6 +22,7 @@ func Migrate(db *gorm.DB) {
 	db.AutoMigrate(&articles.ArticleUserModel{})
 	db.AutoMigrate(&articles.CommentModel{})
 	db.AutoMigrate(&books.BookModel{})
+	db.AutoMigrate(&books.CommentBookModel{})
 }
 
 func main() {

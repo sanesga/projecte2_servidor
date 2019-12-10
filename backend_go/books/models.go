@@ -16,9 +16,10 @@ type BookModel struct {
 	Category    string
 	Author      string
 	Price       uint
-	Comments    []CommentModel `gorm:"ForeignKey:BookID"`
+	Comments    []CommentBookModel `gorm:"ForeignKey:BookID"`
 }
-type CommentModel struct {
+
+type CommentBookModel struct {
 	gorm.Model
 	Book     BookModel
 	BookID   uint
@@ -91,8 +92,8 @@ func DeleteBookModel(condition interface{}) error {
 	return err
 }
 
-func DeleteCommentModel(condition interface{}) error {
+func DeleteCommentBookModel(condition interface{}) error {
 	db := common.GetDB()
-	err := db.Where(condition).Delete(CommentModel{}).Error
+	err := db.Where(condition).Delete(CommentBookModel{}).Error
 	return err
 }
