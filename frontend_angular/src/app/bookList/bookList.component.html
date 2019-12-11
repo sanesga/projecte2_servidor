@@ -1,3 +1,15 @@
 <h1>BOOK DETAILS</h1>
+
+<!--MOSTRAMOS LOS DETALLES DEL LIBRO SELECCIONADO-->
   <app-book-detail [book]="book"></app-book-detail>
+
+  <h3>Comentarios</h3>
+
+<!--MOSTRAMOS LOS COMENTARIOS DEL LIBRO SELECCIONADO-->
+ <app-book-comment
+*ngFor="let comment of comments"
+[comment]="comment"
+(deleteComment)="onDeleteComment(comment)">
+</app-book-comment>
+
 

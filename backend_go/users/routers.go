@@ -288,7 +288,7 @@ func callbackHandler(c *gin.Context) {
 		//guardamos en el contexto de gin
 		c.Set("my_user_model", userModel)
 		//hacemos el redirect
-		c.Redirect(http.StatusFound, "http://localhost:8081/social"+userModel.Username)
+		c.Redirect(http.StatusFound, "http://localhost:8081/social/"+userModel.Username)
 
 	} else {
 		//el usuario existe, hace login y nos genera un token

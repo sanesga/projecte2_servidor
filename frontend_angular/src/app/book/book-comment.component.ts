@@ -4,10 +4,12 @@ import { Comment, User, UserService } from '../core';
 import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'app-article-comment',
-  templateUrl: './article-comment.component.html'
+  selector: 'app-book-comment',
+  templateUrl: './book-comment.component.html',
+  styleUrls: ['book-comment.component.css']
 })
-export class ArticleCommentComponent implements OnInit, OnDestroy {
+export class BookCommentComponent implements OnInit, OnDestroy {
+
   constructor(
     private userService: UserService
   ) {}
@@ -15,17 +17,21 @@ export class ArticleCommentComponent implements OnInit, OnDestroy {
   private subscription: Subscription;
 
   @Input() comment: Comment;
+ 
   @Output() deleteComment = new EventEmitter<boolean>();
 
   canModify: boolean;
 
   ngOnInit() {
-    // Load the current user's data
-    this.subscription = this.userService.currentUser.subscribe(
-      (userData: User) => {
-        this.canModify = (userData.username === this.comment.author.username);
-      }
-    );
+    console.log("entra al controlador de book comment ");
+   
+   //Load the current user's data
+    // this.subscription = this.userService.currentUser.subscribe(
+    //   (userData: User) => {
+    //     this.canModify = (userData.username === this.comment.author.username);
+    //   }
+    // );
+
   }
 
   ngOnDestroy() {
@@ -38,3 +44,4 @@ export class ArticleCommentComponent implements OnInit, OnDestroy {
 
 
 }
+

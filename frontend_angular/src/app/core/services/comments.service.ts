@@ -15,19 +15,19 @@ export class CommentsService {
   add(slug, payload): Observable<Comment> {
     return this.apiService
     .post(
-      `/articles/${slug}/comments`,
+      `/books/${slug}/comments`,
       { comment: { body: payload } }
     ).pipe(map(data => data.comment));
   }
 
   getAll(slug): Observable<Comment[]> {
-    return this.apiService.get(`/articles/${slug}/comments`)
+    return this.apiService.get(`/books/${slug}/comments`)
       .pipe(map(data => data.comments));
   }
 
-  destroy(commentId, articleSlug) {
+  destroy(commentId, bookSlug) {
     return this.apiService
-           .delete(`/articles/${articleSlug}/comments/${commentId}`);
+           .delete(`/books/${bookSlug}/comments/${commentId}`);
   }
 
 }
