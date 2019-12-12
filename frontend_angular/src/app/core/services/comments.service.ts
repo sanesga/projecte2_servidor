@@ -12,10 +12,11 @@ export class CommentsService {
     private apiService: ApiService
   ) {}
 
+  //PARA OBTENER LOS COMENTARIOS LA RUTA ES BOOKS Y PARA CREAR Y BORRAR ES BOOK
   add(slug, payload): Observable<Comment> {
     return this.apiService
     .post(
-      `/books/${slug}/comments`,
+      `/book/${slug}/comments`,
       { comment: { body: payload } }
     ).pipe(map(data => data.comment));
   }
@@ -27,7 +28,7 @@ export class CommentsService {
 
   destroy(commentId, bookSlug) {
     return this.apiService
-           .delete(`/books/${bookSlug}/comments/${commentId}`);
+           .delete(`/book/${bookSlug}/comments/${commentId}`);
   }
 
 }

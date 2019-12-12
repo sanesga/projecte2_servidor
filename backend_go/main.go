@@ -59,6 +59,8 @@ func main() {
 	articles.ArticlesRegister(v1.Group("/articles"))
 	//usuarios (modificar y getOne)
 	users.UserRegister(v1.Group("/user"))
+	//comentarios
+	books.BooksComments(v1.Group("/book"))
 
 	r.Run(":8090") // listen and serve on localhost:8090
 }

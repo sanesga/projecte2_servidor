@@ -5,11 +5,45 @@
 
   <h3>Comentarios</h3>
 
+  <!--MOSTRAMOS EL FORMULARIO PARA ESCRIBIR UN COMENTARIO-->
+  <div class="row">
+    <div class="col-xs-12 col-md-8 offset-md-2">
+  
+      <div *appShowAuthed="true">
+
+        <form class="card comment-form" (ngSubmit)="addComment()">
+          <fieldset [disabled]="isSubmitting">
+            <div class="card-block">
+              <textarea class="form-control"
+                placeholder="Write a comment..."
+                rows="3"
+                [formControl]="commentControl"
+              ></textarea>
+            </div>
+            <div class="card-footer">
+              <!-- <img [src]="currentUser.image" class="comment-author-img" /> -->
+              <button class="btn btn-sm btn-primary" type="submit">
+               Post Comment
+              </button>
+            </div>
+          </fieldset>
+        </form>
+      </div>
+  
+      <div id="noExisteUsuario" *appShowAuthed="false">
+        Tienes que estar<a [routerLink]="['/login']"> logeado</a> o <a [routerLink]="['/register']">registrarte </a>para añadir comentarios a este libro.
+      </div>
+  
+    </div>
+  </div>
+  
+
 <!--MOSTRAMOS LOS COMENTARIOS DEL LIBRO SELECCIONADO-->
  <app-book-comment
 *ngFor="let comment of comments"
 [comment]="comment"
 (deleteComment)="onDeleteComment(comment)">
 </app-book-comment>
+
 
 

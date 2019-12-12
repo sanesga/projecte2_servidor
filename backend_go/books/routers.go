@@ -13,6 +13,10 @@ func BooksRegister(router *gin.RouterGroup) {
 	router.POST("/", BookCreate)
 	router.PUT("/:slug", BookUpdate)
 	router.DELETE("/:slug", BookDelete)
+	// router.POST("/:slug/comments", BookCommentCreate)
+	// router.DELETE("/:slug/comments/:id", BookCommentDelete)
+}
+func BooksComments(router *gin.RouterGroup) {
 	router.POST("/:slug/comments", BookCommentCreate)
 	router.DELETE("/:slug/comments/:id", BookCommentDelete)
 }

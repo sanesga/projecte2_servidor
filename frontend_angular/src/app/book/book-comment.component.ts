@@ -23,14 +23,13 @@ export class BookCommentComponent implements OnInit, OnDestroy {
   canModify: boolean;
 
   ngOnInit() {
-    console.log("entra al controlador de book comment ");
    
    //Load the current user's data
-    // this.subscription = this.userService.currentUser.subscribe(
-    //   (userData: User) => {
-    //     this.canModify = (userData.username === this.comment.author.username);
-    //   }
-    // );
+    this.subscription = this.userService.currentUser.subscribe(
+      (userData: User) => {
+        this.canModify = (userData.username === this.comment.author.username);
+      }
+    );
 
   }
 
