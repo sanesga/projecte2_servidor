@@ -9,6 +9,7 @@
   <div class="row">
     <div class="col-xs-12 col-md-8 offset-md-2">
   
+      <!--Si hay usuario logueado, nos deja publicar comentarios-->
       <div *appShowAuthed="true">
 
         <form class="card comment-form" (ngSubmit)="addComment()">
@@ -23,17 +24,17 @@
             <div class="card-footer">
               <!-- <img [src]="currentUser.image" class="comment-author-img" /> -->
               <button class="btn btn-sm btn-primary" type="submit">
-               Post Comment
+               Publicar comentario
               </button>
             </div>
           </fieldset>
         </form>
       </div>
   
+      <!--Si no hay usuario logueado, nos dirige al login o al register-->
       <div id="noExisteUsuario" *appShowAuthed="false">
         Tienes que estar<a [routerLink]="['/login']"> logeado</a> o <a [routerLink]="['/register']">registrarte </a>para añadir comentarios a este libro.
       </div>
-  
     </div>
   </div>
   

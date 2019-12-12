@@ -57,7 +57,7 @@ export class BookListComponent implements OnInit {
   }
    addComment() {
     this.isSubmitting = true;
-    this.commentFormErrors = {};
+   this.commentFormErrors = {};
 
     const commentBody = this.commentControl.value;
     this.commentsService

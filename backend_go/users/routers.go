@@ -139,11 +139,11 @@ func UsersLogin(c *gin.Context) {
 		c.JSON(http.StatusUnprocessableEntity, common.NewValidatorError(err))
 		return
 	}
-	fmt.Printf("despues del validator")
+	//fmt.Printf("despues del validator")
 
 	userModel, err := FindOneUser(&UserModel{Email: loginValidator.userModel.Email})
 
-	fmt.Printf("%#v", userModel)
+	//fmt.Printf("%#v", userModel)
 
 	if err != nil {
 		c.JSON(http.StatusForbidden, common.NewError("login", errors.New("Not Registered email or invalid password")))
@@ -158,7 +158,7 @@ func UsersLogin(c *gin.Context) {
 	serializer := UserSerializer{c}
 	c.JSON(http.StatusOK, gin.H{"user": serializer.Response()})
 
-	fmt.Printf("fin del login")
+	//fmt.Printf("fin del login")
 }
 
 func UserRetrieve(c *gin.Context) {

@@ -2,6 +2,7 @@ package books
 
 import (
 	"errors"
+	"fmt"
 	"net/http"
 	"strconv"
 
@@ -27,7 +28,9 @@ func BooksAnonymousRegister(router *gin.RouterGroup) {
 	router.GET("/:slug/comments", BookCommentList)
 }
 func BookCommentCreate(c *gin.Context) {
+	fmt.Printf("entra en book comment create")
 	slug := c.Param("slug")
+	//fmt.Printf("%#v", slug)
 	bookModel, err := FindOneBook(&BookModel{Slug: slug})
 	if err != nil {
 		c.JSON(http.StatusNotFound, common.NewError("comment", errors.New("Invalid slug")))
@@ -46,6 +49,7 @@ func BookCommentCreate(c *gin.Context) {
 	}
 	serializer := CommentSerializer{c, commentBookModelValidator.commentBookModel}
 	c.JSON(http.StatusCreated, gin.H{"comment": serializer.Response()})
+
 }
 func BookCommentDelete(c *gin.Context) {
 	id64, err := strconv.ParseUint(c.Param("id"), 10, 32)
