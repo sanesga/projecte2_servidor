@@ -7,6 +7,7 @@ import (
 	"strconv"
 
 	"github.com/proyecto/backend_go/common"
+	"github.com/proyecto/backend_go/users"
 	"gopkg.in/gin-gonic/gin.v1"
 )
 
@@ -14,12 +15,12 @@ func BooksRegister(router *gin.RouterGroup) {
 	router.POST("/", BookCreate)
 	router.PUT("/:slug", BookUpdate)
 	router.DELETE("/:slug", BookDelete)
-	// router.POST("/:slug/comments", BookCommentCreate)
-	// router.DELETE("/:slug/comments/:id", BookCommentDelete)
 }
-func BooksComments(router *gin.RouterGroup) {
+func BooksCommentsFavorite(router *gin.RouterGroup) {
 	router.POST("/:slug/comments", BookCommentCreate)
 	router.DELETE("/:slug/comments/:id", BookCommentDelete)
+	router.POST("/:slug/favorite", BookFavorite)
+	router.DELETE("/:slug/favorite", BookUnfavorite)
 }
 
 func BooksAnonymousRegister(router *gin.RouterGroup) {
@@ -149,4 +150,29 @@ func BookDelete(c *gin.Context) {
 		return
 	}
 	c.JSON(http.StatusOK, gin.H{"book": "Delete success"})
+}
+func BookFavorite(c *gin.Context) {
+	slug := c.Param("slug")
+	bookModel, err := FindOneBook(&BookModel{Slug: slug})
+	if err != nil {
+		c.JSON(http.StatusNotFound, common.NewError("books", errors.New("Invalid slug")))
+		return
+	}
+	myUserModel := c.MustGet("my_user_model").(users.UserModel)
+	err = bookModel.favoriteBy(GetBookUserModel(myUserModel))
+	serializer := ArticleSerializer{c, bookModel}
+	c.JSON(http.StatusOK, gin.H{"book": serializer.Response()})
+}
+
+func BookUnfavorite(c *gin.Context) {
+	slug := c.Param("slug")
+	bookModel, err := FindOneBook(&BookModel{Slug: slug})
+	if err != nil {
+		c.JSON(http.StatusNotFound, common.NewError("books", errors.New("Invalid slug")))
+		return
+	}
+	myUserModel := c.MustGet("my_user_model").(users.UserModel)
+	err = bookModel.unFavoriteBy(GetBookUserModel(myUserModel))
+	serializer := BookSerializer{c, bookModel}
+	c.JSON(http.StatusOK, gin.H{"book": serializer.Response()})
 }
