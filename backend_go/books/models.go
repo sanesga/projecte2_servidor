@@ -29,9 +29,17 @@ type CommentBookModel struct {
 }
 type BookUserModel struct {
 	gorm.Model
-	UserModel   users.UserModel
-	UserModelID uint
-	BookModels  []BookModel `gorm:"ForeignKey:AuthorID"`
+	UserModel      users.UserModel
+	UserModelID    uint
+	BookModels     []BookModel     `gorm:"ForeignKey:AuthorID"`
+	FavoriteModels []FavoriteModel `gorm:"ForeignKey:FavoriteByID"`
+}
+type FavoriteModel struct {
+	gorm.Model
+	Favorite     BookModel
+	FavoriteID   uint
+	FavoriteBy   BookUserModel
+	FavoriteByID uint
 }
 
 func GetBookUserModel(userModel users.UserModel) BookUserModel {
@@ -95,5 +103,41 @@ func DeleteBookModel(condition interface{}) error {
 func DeleteCommentBookModel(condition interface{}) error {
 	db := common.GetDB()
 	err := db.Where(condition).Delete(CommentBookModel{}).Error
+	return err
+}
+func (book BookModel) favoritesCount() uint {
+	db := common.GetDB()
+	var count uint
+	db.Model(&FavoriteModel{}).Where(FavoriteModel{
+		FavoriteID: book.ID,
+	}).Count(&count)
+	return count
+}
+
+func (book BookModel) isFavoriteBy(user BookUserModel) bool {
+	db := common.GetDB()
+	var favorite FavoriteModel
+	db.Where(FavoriteModel{
+		FavoriteID:   book.ID,
+		FavoriteByID: user.ID,
+	}).First(&favorite)
+	return favorite.ID != 0
+}
+
+func (book BookModel) favoriteBy(user BookUserModel) error {
+	db := common.GetDB()
+	var favorite FavoriteModel
+	err := db.FirstOrCreate(&favorite, &FavoriteModel{
+		FavoriteID:   book.ID,
+		FavoriteByID: user.ID,
+	}).Error
+	return err
+}
+func (book BookModel) unFavoriteBy(user BookUserModel) error {
+	db := common.GetDB()
+	err := db.Where(FavoriteModel{
+		FavoriteID:   book.ID,
+		FavoriteByID: user.ID,
+	}).Delete(FavoriteModel{}).Error
 	return err
 }

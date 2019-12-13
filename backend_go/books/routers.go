@@ -160,7 +160,7 @@ func BookFavorite(c *gin.Context) {
 	}
 	myUserModel := c.MustGet("my_user_model").(users.UserModel)
 	err = bookModel.favoriteBy(GetBookUserModel(myUserModel))
-	serializer := ArticleSerializer{c, bookModel}
+	serializer := BookSerializer{c, bookModel}
 	c.JSON(http.StatusOK, gin.H{"book": serializer.Response()})
 }
 

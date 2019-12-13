@@ -15,7 +15,7 @@ var gocial = gocialite.NewDispatcher()
 
 func UsersRegister(router *gin.RouterGroup) {
 	//registro
-	router.POST("/", UsersRegistration)
+	router.POST("/register", UsersRegistration)
 	//login
 	router.POST("/login", UsersLogin)
 	//ver todos los usuarios
@@ -114,6 +114,7 @@ func ProfileUnfollow(c *gin.Context) {
 }
 
 func UsersRegistration(c *gin.Context) {
+	fmt.Printf("entra en users registration")
 	userModelValidator := NewUserModelValidator()
 	if err := userModelValidator.Bind(c); err != nil {
 		c.JSON(http.StatusUnprocessableEntity, common.NewValidatorError(err))
@@ -131,7 +132,7 @@ func UsersRegistration(c *gin.Context) {
 }
 
 func UsersLogin(c *gin.Context) {
-	fmt.Printf("estamos en users login")
+	//fmt.Printf("estamos en users login")
 	loginValidator := NewLoginValidator()
 
 	if err := loginValidator.Bind(c); err != nil {

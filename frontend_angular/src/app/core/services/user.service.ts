@@ -62,8 +62,8 @@ export class UserService {
     return this.apiService.post('/users/' + type, {user: credentials})
       .pipe(map(
       data => { 
-       // console.log("nos da los datos")
-      //  console.log(data.user);
+        //console.log("nos da los datos")
+       //console.log(data.user);
         this.setAuth(data.user);
         return data;
       }

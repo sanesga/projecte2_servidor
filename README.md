@@ -5,6 +5,7 @@ Functions:
 - Login and register
 - Book's list and details
 - Social login (github)
+- Book comments
 - Favourite books -- En curso
 
 ## Frontend
@@ -127,6 +128,7 @@ GET http://localhost:8090/api/books/slug
 
 Falta:
  - añadir localhost:8090/api/users -- get all users
+ - comments
 
 In directory cd /home/sandra/go/src/github.com/proyecto/swagger
 

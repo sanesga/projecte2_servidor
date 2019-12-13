@@ -12,13 +12,15 @@ type BookSerializer struct {
 }
 
 type BookResponse struct {
-	ID          uint   `json:"-"`
-	Title       string `json:"title"`
-	Slug        string `json:"slug"`
-	Description string `json:"description"`
-	Category    string `json:"category"`
-	Author      string `json:"author"`
-	Price       uint   `json:"price"`
+	ID             uint   `json:"-"`
+	Title          string `json:"title"`
+	Slug           string `json:"slug"`
+	Description    string `json:"description"`
+	Category       string `json:"category"`
+	Author         string `json:"author"`
+	Price          uint   `json:"price"`
+	Favorite       bool   `json:"favorited"`
+	FavoritesCount uint   `json:"favoritesCount"`
 }
 
 type BooksSerializer struct {
@@ -27,14 +29,17 @@ type BooksSerializer struct {
 }
 
 func (s *BookSerializer) Response() BookResponse {
+	myUserModel := s.C.MustGet("my_user_model").(users.UserModel)
 	response := BookResponse{
-		ID:          s.ID,
-		Slug:        slug.Make(s.Title),
-		Title:       s.Title,
-		Description: s.Description,
-		Category:    s.Category,
-		Author:      s.Author,
-		Price:       s.Price,
+		ID:             s.ID,
+		Slug:           slug.Make(s.Title),
+		Title:          s.Title,
+		Description:    s.Description,
+		Category:       s.Category,
+		Author:         s.Author,
+		Price:          s.Price,
+		Favorite:       s.isFavoriteBy(GetBookUserModel(myUserModel)),
+		FavoritesCount: s.favoritesCount(),
 	}
 	return response
 }
