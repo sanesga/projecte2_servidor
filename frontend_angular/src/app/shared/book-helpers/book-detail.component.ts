@@ -10,9 +10,9 @@ import { Book } from '../../core';
 export class BookDetailComponent {
    @Input() book: Book;
 
-seeDetails(book){
-console.log(book);
-}
+// seeDetails(book){
+// console.log(book);
+// }
 
  
 }

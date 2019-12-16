@@ -2,6 +2,23 @@
 
 <div *ngFor="let book of books">
   <a [routerLink]="['/bookList', book.slug]">{{ book.title }}</a>
+
+  <!-- agregamos el botón de favorito-->
+  <!-- <app-favorite-book-button
+  [book]="book"
+  (toggle)="onToggleFavorite($event)">
+  {{ book.favorited ? 'Unfavorite' : 'Favorite' }} Book <span class="counter">({{ book.favoritesCount }})</span>
+</app-favorite-book-button>   -->
+
+<!-- <app-article-preview
+  *ngFor="let article of results"
+  [article]="article">
+</app-article-preview> -->
+
+<app-favorite-book
+[book]="book">
+</app-favorite-book>
+
 </div>
 
 

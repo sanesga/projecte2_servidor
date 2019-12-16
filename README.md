@@ -129,6 +129,7 @@ GET http://localhost:8090/api/books/slug
 Falta:
  - añadir localhost:8090/api/users -- get all users
  - comments
+ - favorite
 
 In directory cd /home/sandra/go/src/github.com/proyecto/swagger
 

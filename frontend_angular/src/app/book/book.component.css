@@ -6,9 +6,11 @@ h1{
     line-height: 150px;
 }
 a{
-    margin-top:50px;
+    margin:50px 20px 0px 0px;
     color:grey;
     font-size: 20px;
     text-decoration: underline grey ;
-   
+}
+div{
+    margin-bottom: 20px;
 }

@@ -1,0 +1,7 @@
+<!--RECIBE EL LIBRO Y LLAMA AL BOTÓN DE FAVORITO-->
+<!-- <p>{{book.title}}</p> -->
+ <app-favorite-book-button
+ [book]="book"
+ (toggle)="onToggleFavorite($event)">
+ {{ book.favorited ? 'Unfavorite' : 'Favorite' }} Book <span class="counter">({{ book.favoritesCount }})</span>
+</app-favorite-book-button>

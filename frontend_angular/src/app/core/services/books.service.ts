@@ -44,4 +44,11 @@ export class BooksService {
         .pipe(map(data => data.book));
     }
   }
+  favorite(slug): Observable<Book> {
+    return this.apiService.post('/book/' + slug + '/favorite');
+  }
+
+  unfavorite(slug): Observable<Book> {
+    return this.apiService.delete('/book/' + slug + '/favorite');
+  }
 }

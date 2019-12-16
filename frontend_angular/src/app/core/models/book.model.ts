@@ -7,5 +7,7 @@ export interface Book {
   category: string;
   price: number;
   author: string;
+  favorited: boolean;
+  favoritesCount: number;
 }
 
