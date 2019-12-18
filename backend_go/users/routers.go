@@ -7,7 +7,7 @@ import (
 
 	"github.com/danilopolani/gocialite"
 	"github.com/proyecto/backend_go/common"
-	"gopkg.in/gin-gonic/gin.v1"
+	"github.com/gin-gonic/gin"
 )
 
 //social login

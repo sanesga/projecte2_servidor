@@ -3,7 +3,7 @@ package users
 import (
 	"fmt"
 
-	"gopkg.in/gin-gonic/gin.v1"
+	"github.com/gin-gonic/gin"
 
 	"github.com/proyecto/backend_go/common"
 )

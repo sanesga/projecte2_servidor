@@ -1,0 +1,43 @@
+version: "3"
+services:
+  go:
+    build: backend_go
+    image: back_go
+    working_dir: /go/src/github.com/proyecto/backend_go
+    restart: on-failure
+    command: fresh
+    ports:
+      - "8090:8090"
+    networks:
+      - redis
+    environment:
+      - "REDIS_URL= redis:6379"
+    volumes:
+      - .:/go/src/github.com/proyecto
+      - /go/src/github.com/proyecto/backend_go/vendor
+  redis:
+    image: redis:alpine
+    restart: on-failure
+    ports: 
+      - "6379:6379"
+    volumes:
+      - "redis:/redis_data"
+    networks: 
+      - redis  
+  angular:
+    build: frontend_angular
+    image: alpine:latest
+    volumes: 
+      - ./frontend_angular:/app
+    working_dir: /app
+    command: sh -c "./node_modules/.bin/ng serve --host 0.0.0.0 --disableHostCheck true"
+    ports: 
+      - "8081:4200"
+    environment: 
+      - "REDIS_URL= redis:6379"
+      
+volumes:
+  redis:
+
+networks:
+  redis:

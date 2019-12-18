@@ -2,13 +2,13 @@ package main
 
 import (
 	"github.com/danilopolani/gocialite"
+	"github.com/gin-gonic/gin"
 	"github.com/jinzhu/gorm"
 	"github.com/proyecto/backend_go/articles"
 	"github.com/proyecto/backend_go/books"
 	"github.com/proyecto/backend_go/common"
+	"github.com/proyecto/backend_go/redis"
 	"github.com/proyecto/backend_go/users"
-
-	"gopkg.in/gin-gonic/gin.v1"
 )
 
 /*social login*/
@@ -51,6 +51,8 @@ func main() {
 	//libros
 	books.BooksAnonymousRegister(v1.Group("/books"))
 	books.BooksRegister(v1.Group("/books"))
+	//redis
+	redis.Routers(v1.Group("/redis"))
 
 	/************************************SÍ REQUIEREN TOKEN************************************/
 	v1.Use(users.AuthMiddleware(true))
@@ -62,7 +64,8 @@ func main() {
 	users.UserRegister(v1.Group("/user"))
 	//comentarios
 	books.BooksCommentsFavorite(v1.Group("/book"))
-
+	
+	
 	r.Run(":8090") // listen and serve on localhost:8090
 }
 

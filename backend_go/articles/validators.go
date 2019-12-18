@@ -4,7 +4,7 @@ import (
 	"github.com/gosimple/slug"
 	"github.com/proyecto/backend_go/common"
 	"github.com/proyecto/backend_go/users"
-	"gopkg.in/gin-gonic/gin.v1"
+	"github.com/gin-gonic/gin"
 )
 
 type ArticleModelValidator struct {

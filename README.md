@@ -50,6 +50,7 @@ Functions:
   - go get -u github.com/kardianos/govendor
   - go get -u golang.org/x/crypto/...
   - go get -u github.com/pilu/fresh
+  - go get -u github.com/go-redis/redis
 
   - govendor sync
   - govendor add +external
@@ -103,7 +104,7 @@ GET http://localhost:8090/api/books/slug
    - sudo docker images -a
 
 - Build container:
-  - sudo docker run -p 8090:8090 --name container_backend back_go
+  - sudo docker run -p 8090:8090 --name backend_go_container back_go
 
 - See container:
 
@@ -122,6 +123,10 @@ GET http://localhost:8090/api/books/slug
 ### Docker compose
 
 - sudo docker-compose up
+
+Para sobreescribir la imagen:
+
+- sudo docker-compose up --build
 
 
 ### Run Backend Swagger 
@@ -151,3 +156,13 @@ In directory cd /home/sandra/go/src/github.com/proyecto/swagger
   - go run main.go
   - http://0.0.0.0:3004/swagger/index.html
 
+
+POST
+http://localhost:8090/
+{
+	"key": "sandra",
+	"value": "esplugues"
+}
+GET
+http://localhost:8090/api/redis/sandra
+(Enviem la key)
