@@ -1,15 +1,15 @@
 package books
 
 import (
+	"github.com/gin-gonic/gin"
 	"github.com/gosimple/slug"
 	"github.com/proyecto/backend_go/common"
 	"github.com/proyecto/backend_go/users"
-	"github.com/gin-gonic/gin"
 )
 
 type BookModelValidator struct {
 	Book struct {
-		Title       string `form:"title" json:"title" binding:"exists,min=4"`
+		Title       string `form:"title" json:"title" binding:"min=4"`
 		Description string `form:"description" json:"description" binding:"max=2048"`
 		Category    string `form:"category" json:"category" binding:"max=2048"`
 		Author      string `form:"author" json:"author" binding:"max=2048"`
