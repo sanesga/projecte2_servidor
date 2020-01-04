@@ -14,6 +14,7 @@ func Routers(router *gin.RouterGroup) {
 	router.GET("/", getAll)
 	router.GET("/:key", getOne)
 	router.POST("/", save)
+	router.DELETE("/:key", delete)
 }
 
 //estructura de datos guardados, clave-valor
@@ -60,6 +61,24 @@ func getOne(c *gin.Context) {
 	}
 
 	c.JSON(200, gin.H{key: val})
+
+}
+
+//borramos un libro
+func delete(c *gin.Context) {
+	//creamos el cliente
+	client := newClient()
+	//le pasamos la clave
+	key := c.Param("key")
+	//borramos la clave
+	n, err := client.Del(key).Result()
+	//si error
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+	//si ok, mostramos un mensaje
+	c.JSON(200, gin.H{"result": n})
 
 }
 

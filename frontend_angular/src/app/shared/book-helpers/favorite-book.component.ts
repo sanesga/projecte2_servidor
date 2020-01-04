@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { RedisService } from '../../core/services/redis.service';
 import { Book } from '../../core';
+import { RedisService } from '../../core';
 
 @Component({
   selector: 'app-favorite-book',
@@ -12,6 +12,7 @@ export class FavoriteBookComponent {
 
    constructor(
      private redisService: RedisService
+   
      ){}
     
 // seeDetails(book){
@@ -24,13 +25,25 @@ onToggleFavorite(favorited: boolean) {
   if (favorited) {
     this.book.favoritesCount++;
 
-    //guardamos el libro y el número de favoritos en redis
-    this.redisService.save({key: this.book.title, value: this.book.favoritesCount}).subscribe(data => {
+  
+    this.redisService.getAll().subscribe(data => {
       // this.books = books;
       console.log(data);
       return data;
     });
 
+    //getOne
+    this.redisService.getOne("sandra").subscribe(data=>{
+      console.log(data);
+      return data;
+    });
+
+    //save
+    this.redisService.save({key: this.book.title, value: this.book.favoritesCount}).subscribe(data=>{
+      console.log(data);
+      return data;
+    })
+ 
   } else {
     this.book.favoritesCount--;
   }
