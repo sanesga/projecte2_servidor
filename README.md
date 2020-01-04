@@ -6,7 +6,7 @@ Functions:
 - Book's list and details
 - Social login (github)
 - Book comments
-- Favourite books -- En curso
+- Favourite books
 
 ## Frontend
 
@@ -17,6 +17,7 @@ Functions:
 - Go
 - SQLite
 - Docker
+- Redis
 
 ## Backend Swagger
 
@@ -123,6 +124,8 @@ GET http://localhost:8090/api/books/slug
 ### Docker compose
 
 - sudo docker-compose up
+
+- http://localhost:8081/
 
 Para sobreescribir la imagen:
 
