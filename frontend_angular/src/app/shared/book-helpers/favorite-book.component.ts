@@ -25,27 +25,31 @@ onToggleFavorite(favorited: boolean) {
   if (favorited) {
     this.book.favoritesCount++;
 
-  
-    this.redisService.getAll().subscribe(data => {
-      // this.books = books;
-      console.log(data);
-      return data;
-    });
+  //getAll
+    // this.redisService.getAll().subscribe(data => {
+    //    ///this.books = books;
+    //   console.log(data);
+    //   return data;
+    // });
 
     //getOne
-    this.redisService.getOne("sandra").subscribe(data=>{
-      console.log(data);
-      return data;
-    });
+    // this.redisService.getOne(this.book.slug).subscribe(data=>{
+    //   console.log(data);
+    //   return data;
+    // });
 
-    //save
-    this.redisService.save({key: this.book.title, value: this.book.favoritesCount}).subscribe(data=>{
-      console.log(data);
+    //save to redis
+    this.redisService.save({key: this.book.slug, value: this.book.favoritesCount}).subscribe(data=>{
       return data;
     })
  
   } else {
     this.book.favoritesCount--;
+
+    //save to redis
+    this.redisService.save({key: this.book.slug, value: this.book.favoritesCount}).subscribe(data=>{
+      return data;
+    })
   }
 }
 

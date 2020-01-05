@@ -11,6 +11,7 @@ import { ShowAuthedDirective } from './show-authed.directive';
 import { BookComponent } from '../book/book.component';
 import { BookDetailComponent } from './book-helpers';
 import { BookListComponent } from '../bookList/bookList.component';
+import { BookListRedisComponent } from '../bookListRedis/bookListRedis.component';
 import { BookCommentComponent } from '../book/book-comment.component';
 import { FavoriteBookComponent } from './book-helpers/favorite-book.component';
 import { FavoriteBookButtonComponent } from './buttons/favorite-book-button.component';
@@ -34,6 +35,7 @@ import { FavoriteBookButtonComponent } from './buttons/favorite-book-button.comp
     BookComponent,
     BookDetailComponent,
     BookListComponent,
+    BookListRedisComponent,
     BookCommentComponent,
     FavoriteBookComponent,
     FavoriteBookButtonComponent
@@ -54,6 +56,7 @@ import { FavoriteBookButtonComponent } from './buttons/favorite-book-button.comp
     BookComponent,
     BookDetailComponent,
     BookListComponent,
+    BookListRedisComponent,
     BookCommentComponent,
     FavoriteBookComponent,
     FavoriteBookButtonComponent

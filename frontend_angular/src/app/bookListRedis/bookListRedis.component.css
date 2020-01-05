@@ -1,0 +1,19 @@
+h1{
+    height: 150px;
+    background-color: red;
+    color: white;
+    text-align: center;
+    line-height: 150px;
+}
+h3{
+    margin: 30px 0px 30px 0px;
+    text-align: center;
+    color: red;
+     border: 1px solid red;
+    padding: 20px;
+}
+#noExisteUsuario{
+    text-align: center;
+    margin-bottom: 20px;
+}
+

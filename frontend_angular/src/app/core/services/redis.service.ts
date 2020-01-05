@@ -12,8 +12,8 @@ export class RedisService {
 
   save(body: Object = {}):Observable<[string]> {
       body["value"] = JSON.stringify(body["value"])
-      body["key"] = JSON.stringify(body["key"])
-      
+      body["key"] = body["key"]
+    
     return this.api.post("/redis/", body)
     .pipe(data => {
           return data

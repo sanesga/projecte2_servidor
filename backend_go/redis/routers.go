@@ -30,8 +30,8 @@ func getAll(c *gin.Context) {
 	var array map[string]string
 	array = make(map[string]string)
 
-	//si error
 	keys, err := client.Do("KEYS", "*").Result()
+	//si error
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 	}
