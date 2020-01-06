@@ -25,7 +25,7 @@ export class RedisService {
           return data
         },)}
 
-  getAll(): Observable<[string]> {
+  getAll(): Observable<string[]> {
     return this.api.get("/redis/")
     .pipe(map(data=>{
       return data

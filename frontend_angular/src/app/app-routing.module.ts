@@ -25,12 +25,7 @@ const routes: Routes = [
   {
     path: 'bookList',
     loadChildren: './bookList/bookList.module#BookListModule'
-  },
-  {
-    path: 'bookListRedis',
-    loadChildren: './bookListRedis/bookListRedis.module#BookListRedisModule'
-  },
-
+  }
 ];
 
 @NgModule({

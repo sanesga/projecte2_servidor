@@ -42,8 +42,8 @@
         <p class="text-info">LIBROS MÁS VOTADOS</p>
         <hr>
         <div *ngFor="let book of books">
-          <a [routerLink]="['/bookListRedis', book.slug]">{{ book.title }}</a>
-            <!-- agregamos el componente de favorito, que llamará al botón de favorito-->
+          <a [routerLink]="['/bookList', book.slug]">{{ book.title }}</a>
+       
         </div>
          
       </div>

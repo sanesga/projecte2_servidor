@@ -25,19 +25,6 @@ onToggleFavorite(favorited: boolean) {
   if (favorited) {
     this.book.favoritesCount++;
 
-  //getAll
-    // this.redisService.getAll().subscribe(data => {
-    //    ///this.books = books;
-    //   console.log(data);
-    //   return data;
-    // });
-
-    //getOne
-    // this.redisService.getOne(this.book.slug).subscribe(data=>{
-    //   console.log(data);
-    //   return data;
-    // });
-
     //save to redis
     this.redisService.save({key: this.book.slug, value: this.book.favoritesCount}).subscribe(data=>{
       return data;
