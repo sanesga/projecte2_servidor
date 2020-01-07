@@ -13,7 +13,8 @@ import {
   ProfilesService,
   TagsService,
   UserService,
-  RedisService
+  RedisService,
+  FavoriteBookService
 } from './services';
 
 @NgModule({
@@ -31,7 +32,8 @@ import {
     ProfilesService,
     TagsService,
     UserService,
-    RedisService
+    RedisService,
+    FavoriteBookService
   ],
   declarations: []
 })

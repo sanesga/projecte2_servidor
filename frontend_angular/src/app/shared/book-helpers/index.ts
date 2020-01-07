@@ -1,3 +1,3 @@
 
 export * from './book-detail.component';
-export * from './favorite-book.component';
+export * from './fav-book.component';

@@ -3,11 +3,11 @@ import { Book } from '../../core';
 import { RedisService } from '../../core';
 
 @Component({
-  selector: 'app-favorite-book',
-  styleUrls: ['favorite-book.component.css'],
-  templateUrl: './favorite-book.component.html'
+  selector: 'app-fav-book',
+  styleUrls: ['fav-book.component.css'],
+  templateUrl: './fav-book.component.html'
 })
-export class FavoriteBookComponent {
+export class FavBookComponent {
    @Input() book: Book;
 
    constructor(

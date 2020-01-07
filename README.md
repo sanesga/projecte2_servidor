@@ -7,10 +7,12 @@ Functions:
 - Social login (github)
 - Book comments
 - Favourite books
+- Show the books with the most likes on the home page (with redux and redis)
 
 ## Frontend
 
-- Angular 
+- Angular 8
+- Redux -- in progress
 
 ## Backend Go
 
@@ -169,3 +171,17 @@ http://localhost:8090/
 GET
 http://localhost:8090/api/redis/sandra
 (Enviem la key)
+
+### Install Frontend Redux
+
+Install dependencies with Angular CLI:
+
+- ng add @ngrx/store
+- ng add @ngrx/store-devtools
+- ng add @ngrx/effects
+- ng add @ngrx/router-store
+
+Install Redux plugging for Chrome (for developing mode):
+
+- https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd?hl=en
+

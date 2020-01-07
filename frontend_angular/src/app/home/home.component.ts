@@ -65,6 +65,7 @@ export class HomeComponent implements OnInit {
         var likes = parseInt(data.keys[key]);
 
         //si el libro tiene más de 5 likes, se mostrará en el home, si no, no.
+        
         if (likes >= 5) { //SI EN EL HOME NO SE IMPRIMIE NADA ES QUE NO HAY LIBROS CON MÁS DE 5 LIKES
 
           //creamos la propiedad título, sustituyendo los guiones por espacios para imprimir en el home

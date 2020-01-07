@@ -39,7 +39,7 @@
         
 
         <!--imprimimos la lista de libros con más me gusta, desde redis-->
-        <p class="text-info">LIBROS MÁS VOTADOS</p>
+        <p class="text-info">LIBROS MÁS VOTADOS (VISUALIZADOS EN ANGULAR DESDE REDIS)</p>
         <hr>
         <div *ngFor="let book of books">
           <a [routerLink]="['/bookList', book.slug]">{{ book.title }}</a>
@@ -48,6 +48,7 @@
          
       </div>
 
+  
       <!-- <div class="col-md-3">
         <div class="sidebar">
           <p>Popular Tags</p>
@@ -71,5 +72,8 @@
       </div> -->
 
     </div>
+    <hr>
+      <!--Visualizamos los libros con más likes en redux-->
+      <app-favoriteBook></app-favoriteBook> 
   </div>
 </div>

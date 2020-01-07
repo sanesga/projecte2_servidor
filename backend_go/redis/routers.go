@@ -7,7 +7,6 @@ import (
 	"reflect"
 
 	"github.com/gin-gonic/gin"
-	"github.com/go-redis/redis"
 )
 
 func Routers(router *gin.RouterGroup) {
@@ -17,13 +16,7 @@ func Routers(router *gin.RouterGroup) {
 	router.DELETE("/:key", delete)
 }
 
-//estructura de datos guardados, clave-valor
-type Info struct {
-	Key   string `json:"key"   binding:"required"`
-	Value string `json:"value" binding:"required"`
-}
-
-//obtenemos todos los datos
+//obtenemos todos los libros favoritos
 func getAll(c *gin.Context) {
 
 	client := newClient()
@@ -48,7 +41,7 @@ func getAll(c *gin.Context) {
 	c.JSON(200, gin.H{"keys": array})
 }
 
-//obtenemos un dato, especificando la clave
+//obtenemos un libro favorito, especificando la clave
 func getOne(c *gin.Context) {
 	client := newClient()
 
@@ -64,7 +57,7 @@ func getOne(c *gin.Context) {
 
 }
 
-//borramos un libro
+//borramos un libro favorito
 func delete(c *gin.Context) {
 	//creamos el cliente
 	client := newClient()
@@ -82,7 +75,7 @@ func delete(c *gin.Context) {
 
 }
 
-//guardamos los datos
+//guardamos los libros favoritos
 func save(c *gin.Context) {
 	client := newClient()
 
@@ -103,27 +96,4 @@ func save(c *gin.Context) {
 	}
 	//si se guardan los datos correctamente
 	c.JSON(200, gin.H{"result": "ok"})
-}
-
-//creamos el cliente redis
-func newClient() *redis.Client {
-	client := redis.NewClient(&redis.Options{
-		Addr:     "redis:6379",
-		Password: "",
-		DB:       0,
-	})
-	return client
-}
-
-func set(key string, value string, client *redis.Client) error {
-	err := client.Set(key, value, 0).Err()
-	if err != nil {
-		return err
-	}
-	return nil
-}
-
-func get(key string, client *redis.Client) (error, string) {
-	val, err := client.Get(key).Result()
-	return err, val
 }

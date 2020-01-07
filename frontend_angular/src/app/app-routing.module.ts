@@ -25,6 +25,10 @@ const routes: Routes = [
   {
     path: 'bookList',
     loadChildren: './bookList/bookList.module#BookListModule'
+  },
+  {
+    path:'favoriteBook',
+    loadChildren: './favoriteBook/favoriteBook.module#favoriteBookModule'
   }
 ];
 
