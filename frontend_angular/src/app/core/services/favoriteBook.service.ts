@@ -10,20 +10,21 @@ import { environment } from '../../../environments/environment';
 @Injectable()
 export class FavoriteBookService {
 
-  constructor(private redisService: RedisService,
-    private http: HttpClient,
+  favoriteBooksUrl = `${environment.api_url}/redis/`;
+
+  constructor(
+    private redisService: RedisService,
+    private _http: HttpClient,
     private api: ApiService) { }
-  favoriteBooks: FavoriteBook[]
+
   
-  // getAll(): Observable<string[]> {
+  // getAll(): Observable<FavoriteBookHttp> {
   //   return this.api.get("/redis/")
   //   .pipe((data=>{
   //     return data
   //   }));   
   // }
-  getAll(): Observable<FavoriteBookHttp> {
-        let params = new HttpParams();
-        return this.http.get<FavoriteBookHttp>(`${environment.api_url}/redis/`, {params});
-      
+  getFavoriteBooks(): Observable<FavoriteBookHttp> {
+      return this._http.get<FavoriteBookHttp>(this.favoriteBooksUrl);
       }
 }

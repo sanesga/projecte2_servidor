@@ -136,11 +136,6 @@ Para sobreescribir la imagen:
 
 ### Run Backend Swagger 
 
-Falta:
- - añadir localhost:8090/api/users -- get all users
- - comments
- - favorite
-
 In directory cd /home/sandra/go/src/github.com/proyecto/swagger
 
   - export GOROOT=/usr/local/go

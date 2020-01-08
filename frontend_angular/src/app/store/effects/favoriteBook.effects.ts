@@ -24,10 +24,11 @@ export class FavoriteBookEffects {
   @Effect()
   getfavoriteBooks$ = this._actions$.pipe(
     ofType<GetfavoriteBooks>(EfavoriteBookActions.GetfavoriteBooks),
-    switchMap(() => this._favoriteBookService.getAll()),
-    switchMap((favoriteBook: FavoriteBookHttp) =>{
+    switchMap(() => this._favoriteBookService.getFavoriteBooks()),
+    switchMap((FavoriteBookHttp: FavoriteBookHttp) =>{
       console.log("estamos en favoriteBook effects");
-      console.log(favoriteBook);
-      return of(new GetfavoriteBooksSuccess(favoriteBook.favoriteBooks))
+      console.log(FavoriteBookHttp);
+      return of(new GetfavoriteBooksSuccess(FavoriteBookHttp.favoriteBooks))
     }));
 }
+

@@ -12,12 +12,12 @@ import {
 import { AppRoutingModule } from './app-routing.module';
 import { CoreModule } from './core/core.module';
 import { StoreModule } from '@ngrx/store';
-import { reducers, metaReducers } from './reducers';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { EffectsModule } from '@ngrx/effects';
 import {environment} from '../environments/environment';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import {FavoriteBookEffects} from './store/effects/favoriteBook.effects';
+import { appReducers } from './store/reducers/app.reducers';
 
 
 @NgModule({
@@ -29,7 +29,7 @@ import {FavoriteBookEffects} from './store/effects/favoriteBook.effects';
     HomeModule,
     AuthModule,
     AppRoutingModule,
-    StoreModule.forRoot(reducers, { metaReducers }),
+    StoreModule.forRoot(appReducers),
     StoreRouterConnectingModule.forRoot(),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     EffectsModule.forRoot([FavoriteBookEffects]),
