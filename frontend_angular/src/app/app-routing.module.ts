@@ -28,7 +28,7 @@ const routes: Routes = [
   },
   {
     path:'favoriteBooks',
-    loadChildren: './favoriteBooks/favoriteBooks.module#favoriteBooksModule'
+    loadChildren: './favoriteBooks/favoriteBooks.module#FavoriteBooksModule'
   }
 ];
 

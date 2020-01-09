@@ -29,6 +29,7 @@ onToggleFavorite(favorited: boolean) {
     this.redisService.save({key: this.book.slug, value: this.book.favoritesCount}).subscribe(data=>{
       return data;
     })
+    window.location.reload();
  
   } else {
     this.book.favoritesCount--;
@@ -37,6 +38,7 @@ onToggleFavorite(favorited: boolean) {
     this.redisService.save({key: this.book.slug, value: this.book.favoritesCount}).subscribe(data=>{
       return data;
     })
+    window.location.reload();
   }
 }
 
