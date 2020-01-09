@@ -7,12 +7,13 @@ Functions:
 - Social login (github)
 - Book comments
 - Favourite books
+- Show the books with the most likes on the home page (with angular and redis)
 - Show the books with the most likes on the home page (with redux and redis)
 
 ## Frontend
 
 - Angular 8
-- Redux -- in progress
+- Redux
 
 ## Backend Go
 
@@ -25,7 +26,6 @@ Functions:
 
 - Go
 - Swagger
-
 
 ### Run Frontend Angular
 
@@ -179,4 +179,3 @@ Install dependencies with Angular CLI:
 Install Redux plugging for Chrome (for developing mode):
 
 - https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd?hl=en
-
