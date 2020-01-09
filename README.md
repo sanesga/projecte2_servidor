@@ -171,10 +171,10 @@ http://localhost:8090/api/redis/sandra
 
 Install dependencies with Angular CLI:
 
-- ng add @ngrx/store
-- ng add @ngrx/store-devtools
-- ng add @ngrx/effects
-- ng add @ngrx/router-store
+- sudo ng add @ngrx/store
+- sudo ng add @ngrx/store-devtools
+- sudo ng add @ngrx/effects
+- sudo ng add @ngrx/router-store
 
 Install Redux plugging for Chrome (for developing mode):
 
