@@ -1,0 +1,6 @@
+<p>LISTADO DE LIBROS CON MÁS LIKES (CON REDUX Y REDIS)</p>
+<div class="rates">
+  <div *ngFor="let fb of (favoriteBooksList | async)">
+      {{fb.key}}
+  </div>
+</div>

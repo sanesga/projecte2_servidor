@@ -8,4 +8,4 @@ export * from './tags.service';
 export * from './user.service';
 export * from './books.service';
 export * from './redis.service';
-export * from './favoriteBook.service';
+export * from './favoriteBooks.service';

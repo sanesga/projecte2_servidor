@@ -14,7 +14,7 @@ import {
   TagsService,
   UserService,
   RedisService,
-  FavoriteBookService
+  FavoriteBooksService
 } from './services';
 
 @NgModule({
@@ -33,7 +33,7 @@ import {
     TagsService,
     UserService,
     RedisService,
-    FavoriteBookService
+    FavoriteBooksService
   ],
   declarations: []
 })

@@ -13,7 +13,7 @@ import { BookListComponent } from '../bookList/bookList.component';
 import { BookCommentComponent } from '../book/book-comment.component';
 import { FavBookComponent } from './book-helpers/fav-book.component';
 import { FavoriteBookButtonComponent } from './buttons/favorite-book-button.component';
-import { FavoriteBookComponent } from '../favoriteBook/favoriteBook.component';
+import { FavoriteBooksComponent } from '../favoriteBooks/favoriteBooks.component';
 
 @NgModule({
   imports: [
@@ -37,7 +37,7 @@ import { FavoriteBookComponent } from '../favoriteBook/favoriteBook.component';
     BookCommentComponent,
     FavBookComponent,
     FavoriteBookButtonComponent,
-    FavoriteBookComponent
+    FavoriteBooksComponent
   ],
   exports: [
     ArticleListComponent,
@@ -58,7 +58,7 @@ import { FavoriteBookComponent } from '../favoriteBook/favoriteBook.component';
     BookCommentComponent,
     FavBookComponent,
     FavoriteBookButtonComponent,
-    FavoriteBookComponent
+    FavoriteBooksComponent
   ]
 })
 export class SharedModule {}

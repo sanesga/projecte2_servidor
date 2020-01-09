@@ -1,4 +1,4 @@
 export interface FavoriteBook {
-    key: string,
-    value: string
+    key: String,
+    value: String
 }  
