@@ -36,14 +36,12 @@
         </div> -->
 
         <!-- <app-article-list [limit]="10" [config]="listConfig"></app-article-list> -->
-        
 
         <!--imprimimos la lista de libros con más me gusta, desde redis-->
         <p class="text-info">LIBROS MÁS VOTADOS (VISUALIZADOS EN ANGULAR DESDE REDIS)</p>
         <hr>
         <div *ngFor="let book of books">
           <a [routerLink]="['/bookList', book.slug]">{{ book.title }}</a>
-       
         </div>
          
       </div>

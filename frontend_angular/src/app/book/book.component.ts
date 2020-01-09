@@ -27,23 +27,6 @@ export class BookComponent implements OnInit {
       }
     );
   }
-
-  //ESTO NO SE PUEDE HACER, TENGO QUE HACER UN COMPONENTE, QUE HACE UN FOR Y PASA POR EL INPUT EL BOOK AL BOTON
-  // onToggleFavorite(favorited: boolean) {
-  //   for (var book of this.books){
-  //     this.book=book;
-  //     this.book.favorited = favorited;
-
-  //     if (favorited) {
-  //       this.book.favoritesCount++;
-  //     } else {
-  //       this.book.favoritesCount--;
-  //     }
-  //   }
-  // }
-
-  //podemos hacer un for y hacer una petición al backend
-  
 }
 
 
